@@ -34,9 +34,9 @@ const Home = () => {
           <img alt="instagram Image" />
           <img alt="tiktok Image" />
           <button>contact us</button>
-          <a src="Login.js" className="login">
+          <link src="/login" className="login">
             Login
-          </a>
+          </link>
         </div>
         <div>
           <img alt="logo" />
@@ -53,9 +53,9 @@ const Home = () => {
           Do you want to kick out sickness and maintain good health and fitness?
         </span>
         <span>sign up and get access to pharmaceutical drugs</span>
-        <a src="signIn.js" className="signIn">
+        <link to="/signin" className="signIn">
           sign in
-        </a>
+        </link>
       </div>
       <div className="allCategoriesOfDrugs">
         <div className="categoryLine">
