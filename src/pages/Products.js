@@ -40,7 +40,7 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [state, page]);
 
   useEffect(() => {
     axios
