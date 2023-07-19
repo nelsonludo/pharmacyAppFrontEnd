@@ -1,10 +1,10 @@
-import { useState, useContext } from "react";
-import React from "react";
-import { Link, Navigate } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useState, useContext } from 'react';
+import React from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import styled from 'styled-components';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const SearchBar = () => {
   const [products, setProducts] = useState([]);
@@ -19,27 +19,25 @@ const SearchBar = () => {
     setSearchValue(event.target.value);
   };
 
-  const submitHandle = () => {
-    navigate("/product", {
-      state: { name: searchValue, category: "" },
+  const submitHandle = (e) => {
+    e.preventDefault();
+    navigate('/products', {
+      state: { name: searchValue, category: '' },
     });
   };
 
   return (
     <form onSubmit={submitHandle}>
-      <div className="seachBarDiv">
+      <div className='seachBarDiv'>
         <input
-          type="text"
-          placeholder="search drug here"
-          className="searchProductInput"
+          type='text'
+          placeholder='search drug here'
+          className='searchProductInput'
           onChange={searchHandle}
         />
-        <button name="searchButton">
-          {/* onClick={handleButtonClick} */}
-          <Link to="/products">
-            <img alt="seach Image" />
-          </Link>
-        </button>
+        {/* <button name='searchButton' type='su'>
+            <img alt='seach Image' />
+        </button> */}
       </div>
     </form>
   );

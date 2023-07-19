@@ -1,47 +1,61 @@
-import { useState, useEffect } from "react";
-import React from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import Navbar from "../components/Navbar";
-import styled from "styled-components";
-import ProductItem from "../components/ProductItem";
-import DrugCategory from "../components/DrugCategory";
-import Footer from "../components/Footer";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import axios from '../axios/instance';
+import Navbar from '../components/Navbar';
+import styled from 'styled-components';
+import ProductItem from '../components/ProductItem';
+import DrugCategory from '../components/DrugCategory';
+import Footer from '../components/Footer';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Products = () => {
   const navigate = useNavigate();
-
   const { state } = useLocation();
+  console.log(state);
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState([]);
-  const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getProducts = async () => {
+    try {
+      setLoading(true);
+
+      const { data } = await axios.post(`/product`, {
+        name: state.name,
+        latitude: 0.0,
+        longitude: 0.0,
+        page: 1,
+        categoryId: state.category,
+      });
+      setProducts(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    axios
-      .get(
-        `/product?name=${state?.name}&page=${page}&categoryId=${state?.category}&longitude=&latitude=`
-      )
-      .then((response) =>
-        // for (i = 0; i < response.data.length; i++) {
-        // console.log(response.data[i].name);
-        // }
-        setProduct(response.data)
-      )
-      .catch((error) => console.error(error));
+    getProducts();
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/category")
-      .then((response) =>
-        // for (i = 0; i < response.data.length; i++) {
-        // console.log(response.data[i].name);
-        // }
-        setCategory(response.data)
-      )
+      .get('http://localhost:4000/api/category')
+      .then((response) => setCategory(response.data))
       .catch((error) => console.error(error));
   }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (products.length === 0) {
+    return <h1>No product found</h1>;
+  }
 
   return (
     <Wrapper>
@@ -49,12 +63,15 @@ const Products = () => {
         <SideBar>
           <DrugCategory category={category} />
         </SideBar>
-        <div className="content">
+        <div className='content'>
           <Navbar />
-          <ProductItem product={product} />
+          {/* <ProductItem products={products} /> */}
           <Footer />
         </div>
       </Container>
+      {products.map((product) => {
+        return <h2 key={product.productid}>{product.productname}</h2>;
+      })}
     </Wrapper>
   );
 };
