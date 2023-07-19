@@ -8,15 +8,16 @@ import ProductItem from '../components/ProductItem';
 import DrugCategory from '../components/DrugCategory';
 import Footer from '../components/Footer';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const Products = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  console.log(state);
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { latitude, longitude } = useAuthContext();
 
   const getProducts = async () => {
     try {
@@ -24,13 +25,12 @@ const Products = () => {
 
       const { data } = await axios.post(`/product`, {
         name: state.name,
-        latitude: 0.0,
-        longitude: 0.0,
+        latitude,
+        longitude,
         page: 1,
         categoryId: state.category,
       });
       setProducts(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
     } finally {
