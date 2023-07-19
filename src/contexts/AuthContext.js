@@ -1,9 +1,9 @@
-import axios from '../axios/instance';
-import React, { useContext, useReducer, useEffect, useState } from 'react';
-import reducer from '../reducers/authReducer';
+import axios from "../axios/instance";
+import React, { useContext, useReducer, useEffect, useState } from "react";
+import reducer from "../reducers/authReducer";
 
 const getInfoFromLocalStorage = () => {
-  let info = localStorage.getItem('info');
+  let info = localStorage.getItem("info");
   if (info) {
     return JSON.parse(info);
   } else {
@@ -21,17 +21,18 @@ const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [latitude, setLatitude] = useState(0.0);
   const [longitude, setLongitude] = useState(0.0);
+  const [loggedin, setLoggedin] = useState(false);
 
   const refreshToken = async (link) => {
     try {
       const { data } = await axios.post(`/${link}/token`);
-      dispatch({ type: 'SET_USER', payload: data });
-      console.log('token refreshed ! mouf');
+      dispatch({ type: "SET_USER", payload: data });
+      console.log("token refreshed ! mouf");
     } catch (error) {
-      dispatch({ type: 'UNSET_USER' });
+      dispatch({ type: "UNSET_USER" });
     }
   };
 
@@ -68,6 +69,8 @@ const AuthProvider = ({ children }) => {
         setSearchValue,
         latitude,
         longitude,
+        setLoggedin,
+        loggedin,
       }}
     >
       {children}

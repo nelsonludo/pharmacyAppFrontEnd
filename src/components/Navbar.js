@@ -1,21 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
+  const { loggedin } = useAuthContext();
+
   return (
     <div className="header">
-      <div>
-        <span>follow us on</span>
-        <img alt="tweeter Image" />
-        <img alt="facebook Image" />
-        <img alt="instagram Image" />
-        <img alt="tiktok Image" />
-        <button>contact us</button>
-        <Link src="/login" className="login">
-          Login
-        </Link>
-      </div>
+      {loggedin ? (
+        <div>
+          <span>follow us on</span>
+          <img alt="tweeter Image" />
+          <img alt="facebook Image" />
+          <img alt="instagram Image" />
+          <img alt="tiktok Image" />
+          <button>contact us</button>
+        </div>
+      ) : (
+        <div>
+          <span>follow us on</span>
+          <img alt="tweeter Image" />
+          <img alt="facebook Image" />
+          <img alt="instagram Image" />
+          <img alt="tiktok Image" />
+          <button>contact us</button>
+          <Link to="/login" className="login">
+            Login
+          </Link>
+        </div>
+      )}
+
       <div>
         <img alt="logo" />
         <SearchBar />

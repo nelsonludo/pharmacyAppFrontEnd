@@ -33,12 +33,7 @@ const Home = () => {
   useEffect(() => {
     axios
       .get("/category")
-      .then((response) =>
-        // for (i = 0; i < response.data.length; i++) {
-        // console.log(response.data[i].name);
-        // }
-        setData(response.data)
-      )
+      .then((response) => setData(response.data))
       .catch((error) => console.error(error));
   }, []);
 

@@ -11,7 +11,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { dispatch } = useAuthContext();
+  const { dispatch, setLoggedin, loggedin } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +30,7 @@ const Login = () => {
       localStorage.setItem("info", JSON.stringify(data.title));
       dispatch({ type: "SET_USER", payload: data });
       navigate("/");
+      setLoggedin(true);
     } catch (error) {
       console.log(error);
     } finally {

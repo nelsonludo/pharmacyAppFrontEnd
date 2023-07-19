@@ -4,7 +4,7 @@ import axios from "../axios/instance";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 
-const Signin = () => {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("customer");
@@ -22,7 +22,7 @@ const Signin = () => {
 
     try {
       setLoading(true);
-      const { data } = await axios.post(`/${title}/signin`, {
+      const { data } = await axios.post(`/${title}/Signup`, {
         email,
         password,
       });
@@ -69,12 +69,12 @@ const Signin = () => {
           <option value={"pharmacyAdmin"}>Pharmacy Admin</option>
           <option value={"systemAdmin"}>System Admin</option>
         </select>
-        <button type="submit">Signin</button>
+        <button type="submit">Signup</button>
       </form>
     </Wrapper>
   );
 };
 
-export default Signin;
+export default Signup;
 
 const Wrapper = styled.section``;
