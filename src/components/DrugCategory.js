@@ -9,7 +9,7 @@ const DrugCategory = ({ category }) => {
         <StyledLink
           key={item.id}
           className="categoryContainer"
-          to={"/product"}
+          to={"/products"}
           state={{ name: "", category: item.id }}
         >
           <SubCategoryContainer1>
