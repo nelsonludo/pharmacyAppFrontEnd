@@ -1,22 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar";
-import { useAuthContext } from "../contexts/AuthContext";
-import styled from "styled-components";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import SearchBar from './SearchBar';
+import { useAuthContext } from '../contexts/AuthContext';
+import styled from 'styled-components';
 
 const Navbar = () => {
-  const { loggedin } = useAuthContext();
+  const { user, category } = useAuthContext();
+  const navigate = useNavigate();
+
+  const searchWithCategory = (categoryName) => {
+    if (categoryName === '') {
+      return;
+    }
+
+    navigate('/products', { state: { name: '', category: categoryName } });
+  };
 
   return (
     <div>
-      {loggedin ? (
+      {user.email ? (
         <HeaderNav>
           <FollowUs>
             <span>follow us on</span>
-            <LogoImg src="/images/instagramLogo.png" alt="tweeter Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="facebook Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="instagram Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="tiktok Image" />
+            <LogoImg src='/images/instagramLogo.png' alt='tweeter Image' />
+            <LogoImg src='/images/instagramLogo.png' alt='facebook Image' />
+            <LogoImg src='/images/instagramLogo.png' alt='instagram Image' />
+            <LogoImg src='/images/instagramLogo.png' alt='tiktok Image' />
           </FollowUs>
           <ButtonsDiv>
             <NavButtons>contact us</NavButtons>
@@ -26,14 +35,14 @@ const Navbar = () => {
         <HeaderNav>
           <FollowUs>
             <span>follow us on</span>
-            <LogoImg src="/images/instagramLogo.png" alt="tweeter Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="facebook Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="instagram Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="tiktok Image" />
+            <LogoImg src='/images/instagramLogo.png' alt='tweeter Image' />
+            <LogoImg src='/images/instagramLogo.png' alt='facebook Image' />
+            <LogoImg src='/images/instagramLogo.png' alt='instagram Image' />
+            <LogoImg src='/images/instagramLogo.png' alt='tiktok Image' />
           </FollowUs>
           <ButtonsDiv>
             <NavButtons>contact us</NavButtons>
-            <Login to="/login" className="login">
+            <Login to='/login' className='login'>
               Login
             </Login>
           </ButtonsDiv>
@@ -41,18 +50,26 @@ const Navbar = () => {
       )}
 
       <HeaderSearch>
-        <img alt="logo" />
+        <img src='/images/logo.png' className='logo' alt='logo' />
         <SearchBar />
         <div>
-          <Selects name="categories">
-            <option>Categories</option>
-            <option>categories</option>
-            <option>categories</option>
+          <Selects
+            name='categories'
+            onChange={(e) => searchWithCategory(e.target.value)}
+          >
+            <option value=''>Cagegory</option>
+            {category.map((item, index) => {
+              return (
+                <option key={index} value={item.id}>
+                  {item.name}
+                </option>
+              );
+            })}
           </Selects>
-          <Selects name="AboutUs">
+          <Selects name='AboutUs'>
             <option>About us</option>
           </Selects>
-          <Selects name="OurSevices">
+          <Selects name='OurSevices'>
             <option>Our services</option>
           </Selects>
         </div>
@@ -63,8 +80,8 @@ const Navbar = () => {
 
 export default Navbar;
 
-const navyBlue = "#3c6579";
-const specialorange = "#ff9100";
+const navyBlue = '#3c6579';
+const specialorange = '#ff9100';
 
 const HeaderNav = styled.div`
   background-color: ${navyBlue};
@@ -114,6 +131,13 @@ const HeaderSearch = styled.div`
   color: ${navyBlue};
   height: 70px;
   align-items: center;
+
+  .logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    display: block;
+  }
 `;
 
 const Selects = styled.select`

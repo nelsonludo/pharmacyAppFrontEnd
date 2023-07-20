@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
-import React from "react";
-import { Link } from "react-router-dom";
-import axios from "../axios/instance";
-import Navbar from "../components/Navbar";
-import styled from "styled-components";
-import ProductItem from "../components/ProductItem";
-import Footer from "../components/Footer";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthContext";
-import SideBar from "../components/SideBar";
+import { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import axios from '../axios/instance';
+import Navbar from '../components/Navbar';
+import styled from 'styled-components';
+import ProductItem from '../components/ProductItem';
+import Footer from '../components/Footer';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
+import SideBar from '../components/SideBar';
 
 const Products = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("/category")
+      .get('/category')
       .then((response) => setCategory(response.data))
       .catch((error) => console.error(error));
   }, []);
@@ -61,7 +61,7 @@ const Products = () => {
     <Wrapper>
       <Container>
         <SideBar category={category} />
-        <div className="content">
+        <div className='content'>
           <Navbar />
           {/* <ProductItem products={products} /> */}
           <Footer />
