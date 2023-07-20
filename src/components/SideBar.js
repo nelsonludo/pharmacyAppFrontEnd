@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const DrugCategory = ({ category }) => {
+const SideBar = ({ category }) => {
   return (
     <AllCategoriesOfDrugs>
       {category.map((item) => (
@@ -25,55 +25,27 @@ const DrugCategory = ({ category }) => {
   );
 };
 
-export default DrugCategory;
-
-const navyBlue = "#3c6579";
-const specialorange = "#ff9100";
+export default SideBar;
 
 const Img = styled.img`
-  width: 90px;
-  height: 70px;
+  width: 100%;
 `;
 
 const StyledLink = styled(Link)`
-  width: 100%;
+  width: 15%;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0.5px 0.5px 5px 0.5px lightgrey;
-  text-decoration: none;
-  color: ${navyBlue};
 `;
 
 const SubCategoryContainer1 = styled.div`
-  height: 40%;
-  border-bottom: 1px solid lightgrey;
-  display: flex;
-  justify-content: center;
-  padding: 2px 0;
+  width: 50%;
 `;
 const SubCategoryContainer2 = styled.div`
-  height: 60%;
+  width: 50%;
   display: flex;
   flex-direction: column;
-  text-align: center;
-  padding: 40px 0;
-
-  .categoryName {
-    font-size: 25px;
-    font-weight: bold;
-    margin: 5px;
-  }
 `;
 
 const AllCategoriesOfDrugs = styled.div`
-  width: 90%;
-  position: absolute;
-  top: 570px;
-  left: 0;
-  display: grid;
-  gap: 100px;
-  grid-template-columns: auto auto auto;
-  padding: 0 0 0 70px;
+  width: 100%;
 `;

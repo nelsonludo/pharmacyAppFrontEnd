@@ -25,6 +25,7 @@ const AuthProvider = ({ children }) => {
   const [latitude, setLatitude] = useState(0.0);
   const [longitude, setLongitude] = useState(0.0);
   const [loggedin, setLoggedin] = useState(false);
+  const [category, setCategory] = useState([]);
 
   const refreshToken = async (link) => {
     try {
@@ -60,6 +61,13 @@ const AuthProvider = ({ children }) => {
     });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("/category")
+      .then((response) => setCategory(response.data))
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -71,6 +79,7 @@ const AuthProvider = ({ children }) => {
         longitude,
         setLoggedin,
         loggedin,
+        category,
       }}
     >
       {children}

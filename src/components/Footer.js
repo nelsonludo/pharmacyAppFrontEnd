@@ -1,11 +1,25 @@
 import React from "react";
+import styled from "styled-components";
 
 const Footer = () => {
   return (
-    <footer>
+    <StyledFooter>
       <span> copyright &copy; pharmacy app</span>
-    </footer>
+    </StyledFooter>
   );
 };
 
 export default Footer;
+
+const navyBlue = "#3c6579";
+const specialorange = "#ff9100";
+
+const StyledFooter = styled.footer`
+  margin-top: 100%;
+  background-color: ${navyBlue};
+  height: 100px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
