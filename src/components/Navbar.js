@@ -110,7 +110,7 @@ const Login = styled(NavButtons)`
 const HeaderSearch = styled.div`
   background-color: white;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   color: ${navyBlue};
   height: 70px;
   align-items: center;
@@ -120,7 +120,7 @@ const Selects = styled.select`
   color: ${navyBlue};
   border: none;
   margin: 0 15px;
-  font-size: 20px;
+  font-size: 130%;
 
   option {
     color: ${navyBlue};

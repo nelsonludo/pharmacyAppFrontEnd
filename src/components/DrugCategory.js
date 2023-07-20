@@ -61,9 +61,9 @@ const SubCategoryContainer2 = styled.div`
   padding: 40px 0;
 
   .categoryName {
-    font-size: 25px;
+    font-size: 165%;
     font-weight: bold;
-    margin: 5px;
+    margin: 5%;
   }
 `;
 
@@ -75,5 +75,5 @@ const AllCategoriesOfDrugs = styled.div`
   display: grid;
   gap: 100px;
   grid-template-columns: auto auto auto;
-  padding: 0 0 0 70px;
+  padding: 0 0 0 5%;
 `;

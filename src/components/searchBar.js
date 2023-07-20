@@ -60,6 +60,11 @@ const SearchContainer = styled.div`
     width: 400px;
   }
 
+  input:focus {
+    border: none;
+    outline: none;
+  }
+
   button {
     border: none;
     background-color: white;
