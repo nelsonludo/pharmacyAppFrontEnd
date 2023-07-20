@@ -46,7 +46,7 @@ const Navbar = () => {
           </FollowUs>
           <ButtonsDiv>
             <NavButtons>contact us</NavButtons>
-            <Login to="/" className="logout">
+            <Login to="/login" className="logout">
               Logout
             </Login>
           </ButtonsDiv>
@@ -165,17 +165,20 @@ const Selects = styled.select`
   border: none;
   margin: 0 15px;
   font-size: 130%;
+  width: 18%;
+
+  :focus {
+    outline: none;
+  }
 
   option {
     color: ${navyBlue};
+    display: flex;
+    flex-wrap: wrap;
+    width: inherit;
   }
 
   option:hover {
-    background-color: white;
-    color: ${navyBlue};
-  }
-
-  option:checked {
     background-color: ${navyBlue};
     color: white;
   }

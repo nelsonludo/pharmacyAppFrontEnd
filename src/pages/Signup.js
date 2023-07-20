@@ -112,7 +112,7 @@ const Wrapper = styled.section`
   display: flex;
   justify-content: center;
   align-content: center;
-  margin: 20% 0 0 0;
+  margin: 10% 0 0 0;
 
   .mainContainer {
     width: 45%;
@@ -167,7 +167,7 @@ const Wrapper = styled.section`
     background-color: ${specialorange};
     color: white;
     border-radius: 5px;
-    margin: 10px 10px 10px 0px;
+    margin: 10px 4% 10px 0px;
     border: none;
     padding: 5px;
   }
