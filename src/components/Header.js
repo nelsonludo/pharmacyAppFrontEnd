@@ -5,12 +5,13 @@ import { useAuthContext } from "../contexts/AuthContext";
 import styled from "styled-components";
 
 const Header = () => {
-  const { loggedin } = useAuthContext();
+  // const { loggedin } = useAuthContext();
+  const { user, category } = useAuthContext();
 
   return (
     <TheContainer>
       <Navbar />
-      {loggedin ? (
+      {user.email ? (
         <Headboard>
           <h1>Manage your health and family with happiness</h1>
           <span>
