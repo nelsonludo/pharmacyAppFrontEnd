@@ -8,7 +8,7 @@ const Header = () => {
   const { loggedin } = useAuthContext();
 
   return (
-    <div>
+    <TheContainer>
       <Navbar />
       {loggedin ? (
         <Headboard>
@@ -32,7 +32,7 @@ const Header = () => {
           </NavButtons>
         </Headboard>
       )}
-    </div>
+    </TheContainer>
   );
 };
 
@@ -65,4 +65,11 @@ const NavButtons = styled(Link)`
   margin: 0 0 0 350px;
   background-color: ${specialorange};
   width: 60px;
+`;
+
+const TheContainer = styled.div`
+  grid-column-start: 1;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  z-index: 1;
 `;

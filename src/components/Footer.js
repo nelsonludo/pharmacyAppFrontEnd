@@ -15,7 +15,6 @@ const navyBlue = "#3c6579";
 const specialorange = "#ff9100";
 
 const StyledFooter = styled.footer`
-  margin-top: 100%;
   background-color: ${navyBlue};
   height: 100px;
   color: white;

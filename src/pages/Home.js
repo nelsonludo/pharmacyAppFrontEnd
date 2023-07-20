@@ -52,5 +52,9 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.section`
-  position: relative;
+  // position: relative;
+
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto auto;
 `;

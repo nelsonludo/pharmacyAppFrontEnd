@@ -58,6 +58,7 @@ const SearchContainer = styled.div`
     border: none;
     color: ${navyBlue};
     width: 400px;
+    padding: 5px 5px;
   }
 
   input:focus {

@@ -69,11 +69,13 @@ const SubCategoryContainer2 = styled.div`
 
 const AllCategoriesOfDrugs = styled.div`
   width: 90%;
-  position: absolute;
-  top: 570px;
-  left: 0;
+
+  grid-column-start: 1;
+  grid-row-start: 3;
+  grid-row-end: 6;
+  z-index: 2;
   display: grid;
   gap: 100px;
   grid-template-columns: auto auto auto;
-  padding: 0 0 0 5%;
+  padding: 130px 0 30px 5%;
 `;
