@@ -69,7 +69,6 @@ const SubCategoryContainer2 = styled.div`
 
 const AllCategoriesOfDrugs = styled.div`
   width: 90%;
-
   grid-column-start: 1;
   grid-row-start: 3;
   grid-row-end: 6;
