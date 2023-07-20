@@ -44,7 +44,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/category")
+      .get("/category")
       .then((response) => setCategory(response.data))
       .catch((error) => console.error(error));
   }, []);
