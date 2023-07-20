@@ -77,5 +77,6 @@ const AllCategoriesOfDrugs = styled.div`
   display: grid;
   gap: 100px;
   grid-template-columns: auto auto auto;
-  padding: 130px 0 30px 5%;
+  padding: 0 0 30px 5%;
+  margin: 130px 0 0 0;
 `;
