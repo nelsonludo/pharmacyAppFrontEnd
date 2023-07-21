@@ -26,6 +26,7 @@ const AuthProvider = ({ children }) => {
   const [longitude, setLongitude] = useState(0.0);
   const [loggedin, setLoggedin] = useState(false);
   const [category, setCategory] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const refreshToken = async (link) => {
     try {
@@ -80,6 +81,8 @@ const AuthProvider = ({ children }) => {
         setLoggedin,
         loggedin,
         category,
+        loading,
+        setLoading,
       }}
     >
       {children}

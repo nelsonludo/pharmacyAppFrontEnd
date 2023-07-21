@@ -9,10 +9,12 @@ import Unauthorized from './pages/Unauthorized';
 import ProtectSystemAdmin from './components/ProtectSystemAdmin';
 import SystemAdminPharmacies from './components/SystemAdminPharmacies';
 import SystemAdminDrugs from './components/SystemAdminDrugs';
+import Loading from './components/Loading';
 
 function App() {
   return (
     <BrowserRouter>
+      <Loading />
       <Routes>
         {/* GENERAL ROUTES */}
         <Route path='/' element={<Home />} />
