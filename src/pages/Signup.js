@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import axios from "../axios/instance";
-import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthContext";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import axios from '../axios/instance';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
-  const [title, setTitle] = useState("customer");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
+  const [title, setTitle] = useState('customer');
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -18,20 +18,18 @@ const Signup = () => {
     e.preventDefault();
 
     if (!email || !password || !title || !userName) {
-      alert("please enter both email, password and title");
+      alert('please enter both email, password and title');
     }
 
     try {
       setLoading(true);
-      const { data } = await axios.post(`/${title}/customer/`, {
+      const { data } = await axios.post(`/customer/`, {
         email,
         password,
-        userName,
+        name: userName,
       });
 
-      localStorage.setItem("info", JSON.stringify(data.title));
-      dispatch({ type: "SET_USER", payload: data });
-      navigate("/");
+      // login the user axios.post(`/customer/login`
     } catch (error) {
       console.log(error);
     } finally {
@@ -45,58 +43,58 @@ const Signup = () => {
 
   return (
     <Wrapper>
-      <div className="mainContainer">
-        <div className="signupHead">
+      <div className='mainContainer'>
+        <div className='signupHead'>
           <h1>Sign Up</h1>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="secondContainer">
+          <div className='secondContainer'>
             <label>Name</label>
             <input
-              type="text"
-              name="name"
-              id="name"
+              type='text'
+              name='name'
+              id='name'
               value={userName}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="secondContainer">
+          <div className='secondContainer'>
             <label>Email</label>
             <input
-              type="email"
-              name="email"
-              id="email"
+              type='email'
+              name='email'
+              id='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="secondContainer">
+          <div className='secondContainer'>
             <label>Password</label>
             <input
-              type="password"
-              name="password"
-              id="password"
+              type='password'
+              name='password'
+              id='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="secondContainer">
+          <div className='secondContainer'>
             <label>Title</label>
             <select
-              className="i"
-              name="title"
-              id="title"
+              className='i'
+              name='title'
+              id='title'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             >
-              <option value={"customer"}>Customer</option>
-              <option value={"cachier"}>Cachier</option>
-              <option value={"pharmacyAdmin"}>Pharmacy Admin</option>
-              <option value={"systemAdmin"}>System Admin</option>
+              <option value={'customer'}>Customer</option>
+              <option value={'cachier'}>Cachier</option>
+              <option value={'pharmacyAdmin'}>Pharmacy Admin</option>
+              <option value={'systemAdmin'}>System Admin</option>
             </select>
           </div>
 
-          <button type="submit">Signup</button>
+          <button type='submit'>Signup</button>
         </form>
       </div>
     </Wrapper>
@@ -105,8 +103,8 @@ const Signup = () => {
 
 export default Signup;
 
-const navyBlue = "#3c6579";
-const specialorange = "#ff9100";
+const navyBlue = '#3c6579';
+const specialorange = '#ff9100';
 
 const Wrapper = styled.section`
   display: flex;
