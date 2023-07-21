@@ -49,6 +49,9 @@ const Navbar = () => {
           </FollowUs>
           <ButtonsDiv>
             <NavButtons>contact us</NavButtons>
+            {user.title === 'systemAdmin' && (
+              <Link to={'/systemAdmin/pharmacies'}>Dashboard</Link>
+            )}
             <button className='logout' onClick={logout}>
               Logout
             </button>

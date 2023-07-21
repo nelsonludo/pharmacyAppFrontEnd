@@ -1,18 +1,38 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Products from "./pages/Products";
-import Signup from "./pages/Signup";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import Products from './pages/Products';
+import Signup from './pages/Signup';
+import SystemAdmin from './pages/SystemAdmin';
+import Unauthorized from './pages/Unauthorized';
+import ProtectSystemAdmin from './components/ProtectSystemAdmin';
+import SystemAdminPharmacies from './components/SystemAdminPharmacies';
+import SystemAdminDrugs from './components/SystemAdminDrugs';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/signup" element={<Signup />} />
+        {/* GENERAL ROUTES */}
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/products' element={<Products />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/unauthorized' element={<Unauthorized />} />
+
+        {/* SYSTEM ADMIN ROUTES */}
+        <Route
+          path='/systemAdmin'
+          element={
+            // <ProtectSystemAdmin>
+            <SystemAdmin />
+            // </ProtectSystemAdmin>
+          }
+        >
+          <Route path='pharmacies' element={<SystemAdminPharmacies />} />
+          <Route path='drugs' element={<SystemAdminDrugs />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

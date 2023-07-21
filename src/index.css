@@ -11,3 +11,55 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-header input {
+  width: 60%;
+  text-align: center;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  outline: none;
+}
+
+.dashboard-header button {
+  padding: 10px 5px;
+  color: white;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #3c6579;
+}
+
+.dashboard-table {
+  padding: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.dashboard-table td,
+.dashboard-table th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+.dashboard-table button {
+  padding: 5px;
+  background-color: #3c6579;
+  color: white;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
