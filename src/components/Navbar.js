@@ -52,6 +52,9 @@ const Navbar = () => {
             {user.title === 'systemAdmin' && (
               <Link to={'/systemAdmin/pharmacies'}>Dashboard</Link>
             )}
+            {user.title === 'pharmacyAdmin' && (
+              <Link to={'/pharmacyAdmin/products'}>Dashboard</Link>
+            )}
             <button className='logout' onClick={logout}>
               Logout
             </button>

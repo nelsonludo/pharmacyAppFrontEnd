@@ -1,7 +1,93 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+// import { Pagination } from '@mui/material';
+import axios from '../../axios/instance';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 const PharmacyAdminProducts = () => {
-  return <div>PharmacyAdminProducts</div>;
+  const [products, setProducts] = useState([]);
+  const [name, setName] = useState('');
+  const [page, setPage] = useState(1);
+
+  const { user, setLoading } = useAuthContext();
+
+  const getAllProducts = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(
+        `/pharmacyAdmin/seeOurProducts?name=${name}&page=${page}`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.accessToken,
+          },
+        }
+      );
+      setProducts(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, [name, page]);
+
+  return (
+    <Wrapper>
+      <header className='dashboard-header'>
+        <h1>All Products</h1>
+        <input
+          type='text'
+          id='name'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder='Search for a product'
+        />
+        <button>Add a Product</button>
+      </header>
+      {products.length === 0 ? (
+        <h1>No products available</h1>
+      ) : (
+        <table className='dashboard-table'>
+          <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </thead>
+          <tbody>
+            {products.map((product) => {
+              return (
+                <tr key={product.id}>
+                  <td>{product.id}</td>
+                  <td>{product.productList.name}</td>
+                  <td>{product.productList.description}</td>
+                  <td>{product.productList.productCategory.name}</td>
+                  <td>{product.amount}</td>
+                  <td>{product.price}</td>
+                  <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+    </Wrapper>
+  );
 };
 
 export default PharmacyAdminProducts;
+
+const Wrapper = styled.section`
+  width: 85%;
+  padding: 20px;
+`;
