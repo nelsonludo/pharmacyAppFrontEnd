@@ -6,9 +6,9 @@ import Products from './pages/Products';
 import Signup from './pages/Signup';
 import SystemAdmin from './pages/SystemAdmin';
 import Unauthorized from './pages/Unauthorized';
-import ProtectSystemAdmin from './components/ProtectSystemAdmin';
-import SystemAdminPharmacies from './components/SystemAdminPharmacies';
-import SystemAdminDrugs from './components/SystemAdminDrugs';
+import ProtectSystemAdmin from './components/ProtectRoutes/ProtectSystemAdmin';
+import SystemAdminPharmacies from './components/SystemAdmin/SystemAdminPharmacies';
+import SystemAdminDrugs from './components/SystemAdmin/SystemAdminDrugs';
 import Loading from './components/Loading';
 
 function App() {
@@ -27,9 +27,9 @@ function App() {
         <Route
           path='/systemAdmin'
           element={
-            // <ProtectSystemAdmin>
-            <SystemAdmin />
-            // </ProtectSystemAdmin>
+            <ProtectSystemAdmin>
+              <SystemAdmin />
+            </ProtectSystemAdmin>
           }
         >
           <Route path='pharmacies' element={<SystemAdminPharmacies />} />

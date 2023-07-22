@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
   const [longitude, setLongitude] = useState(0.0);
   const [loggedin, setLoggedin] = useState(false);
   const [category, setCategory] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const refreshToken = async (link) => {
     try {

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SystemAdminDashboardLeft from '../components/SystemAdminDashboardLeft';
+import SystemAdminDashboardLeft from '../components/SystemAdmin/SystemAdminDashboardLeft';
 import { Outlet } from 'react-router-dom';
 
 const SystemAdmin = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from '../axios/instance';
-import { useAuthContext } from '../contexts/AuthContext';
+import axios from '../../axios/instance';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
   const [pharmacyName, setPharmacyName] = useState('');
@@ -74,8 +74,8 @@ const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
   return (
     <Wrapper className='modal'>
       <div className='inside-modal'>
+        <h1>Create a pharmacy</h1>
         <form className='modal-form' onSubmit={handleCreatePharmacy}>
-          <h1>Create a pharmacy</h1>
           <div className='field'>
             <label htmlFor='pharmacyName'>Pharmacy Name</label>
             <input

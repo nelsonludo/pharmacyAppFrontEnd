@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { Pagination } from '@mui/material';
-import axios from '../axios/instance';
-import { useAuthContext } from '../contexts/AuthContext';
+import axios from '../../axios/instance';
+import { useAuthContext } from '../../contexts/AuthContext';
 import SystemAdminCreatePharmacy from './SystemAdminCreatePharmacy';
+import SystemAdminDeletePharmacy from './SystemAdminDeletePharmacy';
+import SystemAdminUpdatePharmacy from './SystemAdminUpdatePharmacy';
 
 const SystemAdminPharmacies = () => {
   const [pharmacies, setPharmacies] = useState([]);
   const [name, setName] = useState('');
   const [page, setPage] = useState(1);
   const [createPharmacy, setCreatePharmacy] = useState(false);
+  const [deletePharmacy, setDeletePharmacy] = useState({
+    show: false,
+    pharmacy: {},
+  });
+  const [updatePharmacy, setUpdatePharmacy] = useState({
+    show: false,
+    pharmacy: {},
+  });
 
   const { user, setLoading } = useAuthContext();
 
@@ -81,8 +91,20 @@ const SystemAdminPharmacies = () => {
                   <td>{pharmacy.allNight ? 'True' : 'False'}</td>
                   <td>{pharmacy.systemAdminCreator.name}</td>
                   <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button
+                      onClick={() =>
+                        setUpdatePharmacy({ show: true, pharmacy })
+                      }
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() =>
+                        setDeletePharmacy({ show: true, pharmacy })
+                      }
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );
@@ -103,6 +125,20 @@ const SystemAdminPharmacies = () => {
       {createPharmacy && (
         <SystemAdminCreatePharmacy
           setCreatePharmacy={setCreatePharmacy}
+          getAllPharmacies={getAllPharmacies}
+        />
+      )}
+      {deletePharmacy.show && (
+        <SystemAdminDeletePharmacy
+          deletePharmacy={deletePharmacy}
+          setDeletePharmacy={setDeletePharmacy}
+          getAllPharmacies={getAllPharmacies}
+        />
+      )}
+      {updatePharmacy.show && (
+        <SystemAdminUpdatePharmacy
+          updatePharmacy={updatePharmacy}
+          setUpdatePharmacy={setUpdatePharmacy}
           getAllPharmacies={getAllPharmacies}
         />
       )}
