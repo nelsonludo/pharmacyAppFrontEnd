@@ -47,10 +47,10 @@ const Navbar = () => {
           <Loading />
           <FollowUs>
             <span>follow us on</span>
-            <LogoImg src="/images/instagramLogo.png" alt="tweeter Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="facebook Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="instagram Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="tiktok Image" />
+            <LogoImg src="/icons/instagram.png" alt="instagram Image" />
+            <LogoImg src="/icons/facebook.png" alt="facebook Image" />
+            <LogoImg src="/icons/tiktok.png" alt="tiktok Image" />
+            <LogoImg src="/icons/linkedIn.png" alt="linkedIn Image" />
           </FollowUs>
           <ButtonsDiv>
             {/* <NavButtons>contact us</NavButtons> */}
@@ -69,10 +69,10 @@ const Navbar = () => {
         <HeaderNav>
           <FollowUs>
             <span>follow us on</span>
-            <LogoImg src="/images/instagramLogo.png" alt="tweeter Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="facebook Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="instagram Image" />
-            <LogoImg src="/images/instagramLogo.png" alt="tiktok Image" />
+            <LogoImg src="/icons/instagram.png" alt="instagram Image" />
+            <LogoImg src="/icons/facebook.png" alt="facebook Image" />
+            <LogoImg src="/icons/tiktok.png" alt="tiktok Image" />
+            <LogoImg src="/icons/linkedIn.png" alt="linkedIn Image" />
           </FollowUs>
           <ButtonsDiv>
             {/* <NavButtons>contact us</NavButtons> */}
@@ -141,12 +141,13 @@ const LogoImg = styled.img`
   width: 15px;
   height: 15px;
   margin: 0 10px 0;
-  padding-top: 5px;
+  padding: 5px 5px 0 5px;
 `;
 
 const FollowUs = styled.div`
   display: flex;
   align-items: center;
+  padding: 0 25px;
 `;
 
 const ButtonsDiv = styled.div`
