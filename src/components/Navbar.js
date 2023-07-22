@@ -100,12 +100,12 @@ const Navbar = () => {
               );
             })}
           </Selects>
-          {/* <Selects name="AboutUs">
-            <option>About us</option>
-          </Selects>
-          <Selects name="OurSevices">
-            <option>Our services</option>
-          </Selects> */}
+          <Link to="AboutUs" className="otherLinks" name="AboutUs">
+            About us
+          </Link>
+          <Link to="OurServices" className="otherLinks" name="OurSevices">
+            Our services
+          </Link>
         </div>
       </HeaderSearch>
     </div>
@@ -181,6 +181,15 @@ const HeaderSearch = styled.div`
     height: 50px;
     object-fit: contain;
     display: block;
+  }
+
+  .otherLinks {
+    color: ${navyBlue};
+    border: none;
+    margin: 0 15px;
+    font-size: 130%;
+    width: 18%;
+    text-decoration: none;
   }
 `;
 
