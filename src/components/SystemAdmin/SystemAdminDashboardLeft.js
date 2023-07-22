@@ -24,6 +24,12 @@ const SystemAdminDashboardLeft = () => {
         >
           Drugs
         </NavLink>
+        <NavLink
+          to={'/'}
+          className={({ isActive }) => (isActive ? 'link active-link' : 'link')}
+        >
+          Product Categories
+        </NavLink>
       </div>
     </Wrapper>
   );

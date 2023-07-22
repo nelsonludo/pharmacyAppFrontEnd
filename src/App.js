@@ -1,15 +1,24 @@
+// General Imports
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// Pages
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Signup from './pages/Signup';
 import SystemAdmin from './pages/SystemAdmin';
+import PharmacyAdmin from './pages/PharmacyAdmin';
 import Unauthorized from './pages/Unauthorized';
+
+// Components Imports
 import ProtectSystemAdmin from './components/ProtectRoutes/ProtectSystemAdmin';
+import ProtectPharmacyAdmin from './components/ProtectRoutes/ProtectPharmacyAdmin';
 import SystemAdminPharmacies from './components/SystemAdmin/SystemAdminPharmacies';
 import SystemAdminDrugs from './components/SystemAdmin/SystemAdminDrugs';
 import Loading from './components/Loading';
+import PharmacyAdminProducts from './components/PharmacyAdmin/PharmacyAdminProducts';
+import PharmacyAdminCashiers from './components/PharmacyAdmin/PharmacyAdminCashiers';
 
 function App() {
   return (
@@ -35,18 +44,22 @@ function App() {
           <Route path='pharmacies' element={<SystemAdminPharmacies />} />
           <Route path='drugs' element={<SystemAdminDrugs />} />
         </Route>
+
+        {/* PHARMACY ADMIN ROUTES */}
+        <Route
+          path='pharmacyAdmin'
+          element={
+            // <ProtectPharmacyAdmin>
+            <PharmacyAdmin />
+            // </ProtectPharmacyAdmin>
+          }
+        >
+          <Route path='products' element={<PharmacyAdminProducts />} />
+          <Route path='cashiers' element={<PharmacyAdminCashiers />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
-//todo
-//npm install react-router-dom axios styled-components react-icons @emotion/react emotion/styled mui/material
-
-// then setup usereducer and usecontext (make sure they're accessible everywhere)
-// create an authcontext and it's reducer function which stores user info
-// create all login pages (system admin, pharmacy admin, cashier and customer)
-// create a sign up page just for customer
-// create a home page (you can put click to sign in)
