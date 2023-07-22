@@ -28,7 +28,8 @@ const Signup = () => {
         password,
         name: userName,
       });
-
+      console.log(data);
+      navigate('/');
       // login the user axios.post(`/customer/login`
     } catch (error) {
       console.log(error);
@@ -55,7 +56,7 @@ const Signup = () => {
               name='name'
               id='name'
               value={userName}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
           <div className='secondContainer'>
