@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const Header = () => {
   // const { loggedin } = useAuthContext();
-  const { user, category } = useAuthContext();
+  const { user } = useAuthContext();
 
   return (
     <TheContainer>
@@ -39,7 +39,7 @@ const Header = () => {
 
 export default Header;
 
-const navyBlue = "#3c6579";
+// const navyBlue = "#3c6579";
 const specialorange = "#ff9100";
 
 const Headboard = styled.div`

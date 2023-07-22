@@ -3,15 +3,15 @@ import styled from "styled-components";
 import axios from "../axios/instance";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
+import Loading from "../components/Loading";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("customer");
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { dispatch, setLoggedin, loggedin } = useAuthContext();
+  const { dispatch, setLoading } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +30,6 @@ const Login = () => {
       localStorage.setItem("info", JSON.stringify(data.title));
       dispatch({ type: "SET_USER", payload: data });
       navigate("/");
-      setLoggedin(true);
     } catch (error) {
       console.log(error);
     } finally {
@@ -38,12 +37,9 @@ const Login = () => {
     }
   };
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
   return (
     <Wrapper>
+      <Loading />
       <div className="mainContainer">
         <div className="signupHead">
           <h1>Login</h1>

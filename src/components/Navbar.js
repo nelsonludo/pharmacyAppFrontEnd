@@ -1,61 +1,66 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import SearchBar from './SearchBar';
-import { useAuthContext } from '../contexts/AuthContext';
-import styled from 'styled-components';
-import axios from '../axios/instance';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import SearchBar from "./SearchBar";
+import { useAuthContext } from "../contexts/AuthContext";
+import styled from "styled-components";
+import axios from "../axios/instance";
+import Loading from "./Loading";
 
 const Navbar = () => {
-  const { user, dispatch, category } = useAuthContext();
+  const { user, dispatch, category, setLoading } = useAuthContext();
   const navigate = useNavigate();
 
   const logout = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.post(
         `/${user.title}/logout`,
         {},
         {
           headers: {
-            Authorization: 'Bearer ' + user.accessToken,
+            Authorization: "Bearer " + user.accessToken,
           },
         }
       );
-      localStorage.removeItem('info');
-      dispatch({ type: 'UNSET_USER' });
-      navigate('/');
+      localStorage.removeItem("info");
+      dispatch({ type: "UNSET_USER" });
+      navigate("/");
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const searchWithCategory = (categoryName) => {
-    if (categoryName === '') {
+    if (categoryName === "") {
       return;
     }
 
-    navigate('/products', { state: { name: '', category: categoryName } });
+    navigate("/products", { state: { name: "", category: categoryName } });
   };
 
   return (
     <div>
       {user.email ? (
         <HeaderNav>
+          <Loading />
           <FollowUs>
             <span>follow us on</span>
-            <LogoImg src='/images/instagramLogo.png' alt='tweeter Image' />
-            <LogoImg src='/images/instagramLogo.png' alt='facebook Image' />
-            <LogoImg src='/images/instagramLogo.png' alt='instagram Image' />
-            <LogoImg src='/images/instagramLogo.png' alt='tiktok Image' />
+            <LogoImg src="/images/instagramLogo.png" alt="tweeter Image" />
+            <LogoImg src="/images/instagramLogo.png" alt="facebook Image" />
+            <LogoImg src="/images/instagramLogo.png" alt="instagram Image" />
+            <LogoImg src="/images/instagramLogo.png" alt="tiktok Image" />
           </FollowUs>
           <ButtonsDiv>
-            <NavButtons>contact us</NavButtons>
-            {user.title === 'systemAdmin' && (
-              <Link to={'/systemAdmin/pharmacies'}>Dashboard</Link>
+            {/* <NavButtons>contact us</NavButtons> */}
+            {user.title === "systemAdmin" && (
+              <NavButtons to={"/systemAdmin/pharmacies"}>Dashboard</NavButtons>
             )}
-            {user.title === 'pharmacyAdmin' && (
-              <Link to={'/pharmacyAdmin/products'}>Dashboard</Link>
+            {user.title === "pharmacyAdmin" && (
+              <NavButtons to={"/pharmacyAdmin/products"}>Dashboard</NavButtons>
             )}
-            <button className='logout' onClick={logout}>
+            <button className="logout" onClick={logout}>
               Logout
             </button>
           </ButtonsDiv>
@@ -64,14 +69,14 @@ const Navbar = () => {
         <HeaderNav>
           <FollowUs>
             <span>follow us on</span>
-            <LogoImg src='/images/instagramLogo.png' alt='tweeter Image' />
-            <LogoImg src='/images/instagramLogo.png' alt='facebook Image' />
-            <LogoImg src='/images/instagramLogo.png' alt='instagram Image' />
-            <LogoImg src='/images/instagramLogo.png' alt='tiktok Image' />
+            <LogoImg src="/images/instagramLogo.png" alt="tweeter Image" />
+            <LogoImg src="/images/instagramLogo.png" alt="facebook Image" />
+            <LogoImg src="/images/instagramLogo.png" alt="instagram Image" />
+            <LogoImg src="/images/instagramLogo.png" alt="tiktok Image" />
           </FollowUs>
           <ButtonsDiv>
-            <NavButtons>contact us</NavButtons>
-            <Login to='/login' className='login'>
+            {/* <NavButtons>contact us</NavButtons> */}
+            <Login to="/login" className="login">
               Login
             </Login>
           </ButtonsDiv>
@@ -79,14 +84,14 @@ const Navbar = () => {
       )}
 
       <HeaderSearch>
-        <img src='/images/logo.png' className='logo' alt='logo' />
+        <img src="/images/logo.png" className="logo" alt="logo" />
         <SearchBar />
         <div>
           <Selects
-            name='categories'
+            name="categories"
             onChange={(e) => searchWithCategory(e.target.value)}
           >
-            <option value=''>Cagegory</option>
+            <option value="">Cagegory</option>
             {category.map((item, index) => {
               return (
                 <option key={index} value={item.id}>
@@ -95,12 +100,12 @@ const Navbar = () => {
               );
             })}
           </Selects>
-          <Selects name='AboutUs'>
+          {/* <Selects name="AboutUs">
             <option>About us</option>
           </Selects>
-          <Selects name='OurSevices'>
+          <Selects name="OurSevices">
             <option>Our services</option>
-          </Selects>
+          </Selects> */}
         </div>
       </HeaderSearch>
     </div>
@@ -109,8 +114,8 @@ const Navbar = () => {
 
 export default Navbar;
 
-const navyBlue = '#3c6579';
-const specialorange = '#ff9100';
+const navyBlue = "#3c6579";
+const specialorange = "#ff9100";
 
 const HeaderNav = styled.div`
   background-color: ${navyBlue};
@@ -120,6 +125,16 @@ const HeaderNav = styled.div`
   color: white;
   align-items: center;
   justify-content: space-between;
+
+  .logout {
+    padding: 2px 30px;
+    border-radius: 15px;
+    text-decoration: none;
+    margin: 0 25px;
+    color: ${specialorange};
+    border: 2px solid ${specialorange};
+    background-color: ${navyBlue};
+  }
 `;
 
 const LogoImg = styled.img`
