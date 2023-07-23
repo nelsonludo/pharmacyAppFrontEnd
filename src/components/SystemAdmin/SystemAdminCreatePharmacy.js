@@ -133,7 +133,7 @@ const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
               type='radio'
               name='pharmacyAllNight'
               id='pharmacyAllNight'
-              value={pharmacyAllNight}
+              value={true}
               checked={pharmacyAllNight}
               // onChange={(e) => setPharmacyAllNight(true)}
               onClick={() => setPharmacyAllNight(true)}
@@ -143,7 +143,7 @@ const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
               type='radio'
               name='pharmacyAllNight'
               id='pharmacyAllNight'
-              value={pharmacyAllNight}
+              value={false}
               // onChange={(e) => setPharmacyAllNight(true)}
               onClick={() => setPharmacyAllNight(false)}
             />

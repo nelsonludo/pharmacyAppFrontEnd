@@ -49,9 +49,9 @@ function App() {
         <Route
           path='pharmacyAdmin'
           element={
-            // <ProtectPharmacyAdmin>
-            <PharmacyAdmin />
-            // </ProtectPharmacyAdmin>
+            <ProtectPharmacyAdmin>
+              <PharmacyAdmin />
+            </ProtectPharmacyAdmin>
           }
         >
           <Route path='products' element={<PharmacyAdminProducts />} />

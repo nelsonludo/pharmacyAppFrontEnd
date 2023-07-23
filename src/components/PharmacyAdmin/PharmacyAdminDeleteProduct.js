@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useAuthContext } from '../../contexts/AuthContext';
 import axios from '../../axios/instance';
 
-const PharmacyAdminDeleteDrug = ({
+const PharmacyAdminDeleteProduct = ({
   deleteProduct,
   setDeleteProduct,
   getAllProducts,
@@ -54,6 +54,6 @@ const PharmacyAdminDeleteDrug = ({
   );
 };
 
-export default PharmacyAdminDeleteDrug;
+export default PharmacyAdminDeleteProduct;
 
 const Wrapper = styled.section``;

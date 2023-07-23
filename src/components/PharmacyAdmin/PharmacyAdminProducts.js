@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import axios from '../../axios/instance';
 import { useAuthContext } from '../../contexts/AuthContext';
 import PharmacyAdminCreateProduct from './PharmacyAdminCreateProduct';
-import PharmacyAdminDeleteDrug from './PharmacyAdminDeleteDrug';
+import PharmacyAdminDeleteProduct from './PharmacyAdminDeleteProduct';
 import PharmacyAdminUpdateProduct from './PharmacyAdminUpdateProduct';
 
 const PharmacyAdminProducts = () => {
@@ -64,13 +64,15 @@ const PharmacyAdminProducts = () => {
       ) : (
         <table className='dashboard-table'>
           <thead>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Actions</th>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Actions</th>
+            </tr>
           </thead>
           <tbody>
             {products.map((product) => {
@@ -107,7 +109,7 @@ const PharmacyAdminProducts = () => {
         />
       )}
       {deleteProduct.show && (
-        <PharmacyAdminDeleteDrug
+        <PharmacyAdminDeleteProduct
           deleteProduct={deleteProduct}
           setDeleteProduct={setDeleteProduct}
           getAllProducts={getAllProducts}

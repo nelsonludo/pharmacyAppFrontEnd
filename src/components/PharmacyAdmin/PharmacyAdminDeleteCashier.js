@@ -3,27 +3,27 @@ import styled from 'styled-components';
 import { useAuthContext } from '../../contexts/AuthContext';
 import axios from '../../axios/instance';
 
-const SystemAdminDeletePharmacy = ({
-  deletePharmacy,
-  setDeletePharmacy,
-  getAllPharmacies,
+const PharmacyAdminDeleteCashier = ({
+  deleteCashier,
+  setDeleteCashier,
+  getAllCashiers,
 }) => {
   const { user, setLoading } = useAuthContext();
 
-  const handleDeletePharmacy = async () => {
+  const handleDeleteProduct = async () => {
     try {
       setLoading(true);
       const { data } = await axios.delete(
-        `/systemAdmin/deletePharmacy/${deletePharmacy.pharmacy.id}`,
+        `/pharmacyAdmin/deleteCachier/${deleteCashier.cashier.id}`,
         {
           headers: {
             Authorization: 'Bearer ' + user.accessToken,
           },
         }
       );
-      getAllPharmacies();
-      setDeletePharmacy({ show: false, pharmacy: {} });
-      alert('Pharmacy has been deleted');
+      getAllCashiers();
+      setDeleteCashier({ show: false, cashier: {} });
+      alert('Cashier has been deleted');
     } catch (error) {
       console.log(error);
       alert('An error has occured');
@@ -36,16 +36,16 @@ const SystemAdminDeletePharmacy = ({
     <Wrapper className='modal'>
       <div className='inside-modal'>
         <h1>
-          Are you sure you want to delete the pharmacy "
-          {deletePharmacy.pharmacy.name}" ?
+          Are you sure you want to delete the cashier "
+          {deleteCashier.cashier.name}" ?
         </h1>
         <div className='list-buttons'>
           <button
-            onClick={() => setDeletePharmacy({ show: false, pharmacy: {} })}
+            onClick={() => setDeleteCashier({ show: false, cashier: {} })}
           >
             Close
           </button>
-          <button type='submit' onClick={handleDeletePharmacy}>
+          <button type='submit' onClick={handleDeleteProduct}>
             Submit
           </button>
         </div>
@@ -54,6 +54,6 @@ const SystemAdminDeletePharmacy = ({
   );
 };
 
-export default SystemAdminDeletePharmacy;
+export default PharmacyAdminDeleteCashier;
 
 const Wrapper = styled.section``;
