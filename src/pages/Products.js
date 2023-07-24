@@ -17,7 +17,6 @@ const Products = () => {
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { latitude, longitude } = useAuthContext();
 
   const getProducts = async () => {
     try {
@@ -25,8 +24,8 @@ const Products = () => {
 
       const { data } = await axios.post(`/product`, {
         name: state.name,
-        latitude,
-        longitude,
+        latitude: 3.84548,
+        longitude: 11.520978,
         page: 1,
         categoryId: state.category,
       });
@@ -68,7 +67,26 @@ const Products = () => {
         </div>
       </Container>
       {products.map((product) => {
-        return <h2 key={product.productid}>{product.productname}</h2>;
+        return (
+          <article
+            key={product.productid}
+            style={{
+              border: '1px solid black',
+              padding: '15px',
+              margin: '10px',
+            }}
+          >
+            <img
+              src={`http://localhost:4000/static/productImages/${product.productimage}`}
+              alt=''
+            />
+            <h2>Name: {product.productname}</h2>
+            <h3>Pharmacy: {product.pharmacyname}</h3>
+            <h3>Price: {product.productprice} FCFA</h3>
+            <h3>Distance (m): {product.distance_m}</h3>
+            <h3>Quantity Available: {product.productamount}</h3>
+          </article>
+        );
       })}
     </Wrapper>
   );

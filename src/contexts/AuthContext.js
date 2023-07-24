@@ -22,8 +22,6 @@ const AuthContext = React.createContext();
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [searchValue, setSearchValue] = useState('');
-  const [latitude, setLatitude] = useState(0.0);
-  const [longitude, setLongitude] = useState(0.0);
   const [loggedin, setLoggedin] = useState(false);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -53,16 +51,6 @@ const AuthProvider = ({ children }) => {
   }, [state.user]);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      let lat = position.coords.latitude;
-      let long = position.coords.longitude;
-
-      setLatitude(lat);
-      setLongitude(long);
-    });
-  }, []);
-
-  useEffect(() => {
     axios
       .get('/category')
       .then((response) => setCategory(response.data))
@@ -76,8 +64,6 @@ const AuthProvider = ({ children }) => {
         dispatch,
         searchValue,
         setSearchValue,
-        latitude,
-        longitude,
         setLoggedin,
         loggedin,
         category,

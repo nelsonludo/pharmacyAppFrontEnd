@@ -72,13 +72,16 @@ const SystemAdminPharmacies = () => {
       ) : (
         <table className='dashboard-table'>
           <thead>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Hourly</th>
-            <th>Phone Number</th>
-            <th>All Night</th>
-            <th>Creator</th>
-            <th>Actions</th>
+            <tr>
+              {' '}
+              <th>Name</th>
+              <th>Email</th>
+              <th>Hourly</th>
+              <th>Phone Number</th>
+              <th>All Night</th>
+              <th>Creator</th>
+              <th>Actions</th>
+            </tr>
           </thead>
           <tbody>
             {pharmacies.map((pharmacy) => {

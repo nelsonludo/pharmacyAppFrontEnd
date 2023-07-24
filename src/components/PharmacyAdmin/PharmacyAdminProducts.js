@@ -3,11 +3,23 @@ import styled from 'styled-components';
 // import { Pagination } from '@mui/material';
 import axios from '../../axios/instance';
 import { useAuthContext } from '../../contexts/AuthContext';
+import PharmacyAdminCreateProduct from './PharmacyAdminCreateProduct';
+import PharmacyAdminDeleteProduct from './PharmacyAdminDeleteProduct';
+import PharmacyAdminUpdateProduct from './PharmacyAdminUpdateProduct';
 
 const PharmacyAdminProducts = () => {
   const [products, setProducts] = useState([]);
   const [name, setName] = useState('');
   const [page, setPage] = useState(1);
+  const [createProduct, setCreateProduct] = useState(false);
+  const [deleteProduct, setDeleteProduct] = useState({
+    show: false,
+    product: {},
+  });
+  const [updateProduct, setUpdateProduct] = useState({
+    show: false,
+    product: {},
+  });
 
   const { user, setLoading } = useAuthContext();
 
@@ -23,7 +35,6 @@ const PharmacyAdminProducts = () => {
         }
       );
       setProducts(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -46,20 +57,22 @@ const PharmacyAdminProducts = () => {
           onChange={(e) => setName(e.target.value)}
           placeholder='Search for a product'
         />
-        <button>Add a Product</button>
+        <button onClick={() => setCreateProduct(true)}>Add a Product</button>
       </header>
       {products.length === 0 ? (
         <h1>No products available</h1>
       ) : (
         <table className='dashboard-table'>
           <thead>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Actions</th>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Actions</th>
+            </tr>
           </thead>
           <tbody>
             {products.map((product) => {
@@ -72,14 +85,42 @@ const PharmacyAdminProducts = () => {
                   <td>{product.amount}</td>
                   <td>{product.price}</td>
                   <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button
+                      onClick={() => setUpdateProduct({ show: true, product })}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => setDeleteProduct({ show: true, product })}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
+      )}
+      {createProduct && (
+        <PharmacyAdminCreateProduct
+          setCreateProduct={setCreateProduct}
+          getAllProducts={getAllProducts}
+        />
+      )}
+      {deleteProduct.show && (
+        <PharmacyAdminDeleteProduct
+          deleteProduct={deleteProduct}
+          setDeleteProduct={setDeleteProduct}
+          getAllProducts={getAllProducts}
+        />
+      )}
+      {updateProduct.show && (
+        <PharmacyAdminUpdateProduct
+          updateProduct={updateProduct}
+          setUpdateProduct={setUpdateProduct}
+          getAllProducts={getAllProducts}
+        />
       )}
     </Wrapper>
   );
