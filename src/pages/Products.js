@@ -17,25 +17,15 @@ const Products = () => {
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [latitude, setLatitude] = useState(0.0);
-  const [longitude, setLongitude] = useState(0.0);
 
   const getProducts = async () => {
     try {
       setLoading(true);
 
-      navigator.geolocation.getCurrentPosition((position) => {
-        let lat = position.coords.latitude;
-        let long = position.coords.longitude;
-
-        setLatitude(lat);
-        setLongitude(long);
-      });
-
       const { data } = await axios.post(`/product`, {
         name: state.name,
-        latitude,
-        longitude,
+        latitude: 3.84548,
+        longitude: 11.520978,
         page: 1,
         categoryId: state.category,
       });
@@ -49,7 +39,7 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
-  }, [state, page, latitude, longitude]);
+  }, [state, page]);
 
   useEffect(() => {
     axios
