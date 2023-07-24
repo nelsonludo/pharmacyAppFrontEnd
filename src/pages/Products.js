@@ -40,7 +40,6 @@ const Products = () => {
         categoryId: state.category,
       });
       setProducts(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
     } finally {

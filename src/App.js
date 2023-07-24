@@ -14,6 +14,7 @@ import Unauthorized from './pages/Unauthorized';
 // Components Imports
 import ProtectSystemAdmin from './components/ProtectRoutes/ProtectSystemAdmin';
 import ProtectPharmacyAdmin from './components/ProtectRoutes/ProtectPharmacyAdmin';
+import ProtectCashier from './components/ProtectRoutes/ProtectCashier';
 import SystemAdminPharmacies from './components/SystemAdmin/SystemAdminPharmacies';
 import SystemAdminDrugs from './components/SystemAdmin/SystemAdminDrugs';
 import Loading from './components/Loading';
