@@ -91,7 +91,7 @@ const Navbar = () => {
             name="categories"
             onChange={(e) => searchWithCategory(e.target.value)}
           >
-            <option value="">Cagegory</option>
+            <option value="">Category</option>
             {category.map((item, index) => {
               return (
                 <option key={index} value={item.id}>

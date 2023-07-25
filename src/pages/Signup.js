@@ -76,22 +76,6 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="secondContainer">
-            <label>Title</label>
-            <select
-              className="i"
-              name="title"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            >
-              <option value={"customer"}>Customer</option>
-              <option value={"cachier"}>Cachier</option>
-              <option value={"pharmacyAdmin"}>Pharmacy Admin</option>
-              <option value={"systemAdmin"}>System Admin</option>
-            </select>
-          </div>
-
           <button type="submit">Signup</button>
         </form>
       </div>

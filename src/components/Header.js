@@ -43,7 +43,7 @@ export default Header;
 const specialorange = "#ff9100";
 
 const Headboard = styled.div`
-  background-image: url(/images/armin-poste-transform.png);
+  background-image: url(/images/guy.png);
   height: 450px;
   color: white;
   display: flex;

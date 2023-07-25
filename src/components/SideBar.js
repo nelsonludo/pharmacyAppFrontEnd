@@ -12,13 +12,8 @@ const SideBar = ({ category }) => {
           to={"/product"}
           state={{ name: "", category: item.id }}
         >
-          <SubCategoryContainer1>
-            <Img alt="aCategory" src={item.imageUrl} />
-          </SubCategoryContainer1>
-          <SubCategoryContainer2>
-            <span className="categoryName">{item.name}</span>
-            <span className="categoryDescription">{item.description}</span>
-          </SubCategoryContainer2>
+          <h3 className="categoryName">{item.name}</h3>
+          <span className="categoryDescription">{item.description}</span>
         </StyledLink>
       ))}
     </AllCategoriesOfDrugs>
@@ -27,25 +22,31 @@ const SideBar = ({ category }) => {
 
 export default SideBar;
 
+const navyBlue = "#3c6579";
+const specialorange = "#ff9100";
+
 const Img = styled.img`
   width: 100%;
 `;
 
 const StyledLink = styled(Link)`
-  width: 15%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-`;
+  margin: 0;
+  text-decoration: none;
 
-const SubCategoryContainer1 = styled.div`
-  width: 50%;
-`;
-const SubCategoryContainer2 = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
+  span {
+    color: darkgrey;
+  }
+
+  h3 {
+    color: ${navyBlue};
+  }
 `;
 
 const AllCategoriesOfDrugs = styled.div`
-  width: 100%;
+  width: 20%;
+  padding: 15px 2%;
+  box-shadow: 0.5px 0.5px 5px 0.5px lightgrey;
 `;
