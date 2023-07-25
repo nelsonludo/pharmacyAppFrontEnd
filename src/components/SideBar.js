@@ -9,7 +9,7 @@ const SideBar = ({ category }) => {
         <StyledLink
           key={item.id}
           className="categoryContainer"
-          to={"/product"}
+          to={"/products"}
           state={{ name: "", category: item.id }}
         >
           <h3 className="categoryName">{item.name}</h3>
@@ -49,4 +49,5 @@ const AllCategoriesOfDrugs = styled.div`
   width: 20%;
   padding: 15px 2%;
   box-shadow: 0.5px 0.5px 5px 0.5px lightgrey;
+  border-radius: 0 10px 0 0;
 `;

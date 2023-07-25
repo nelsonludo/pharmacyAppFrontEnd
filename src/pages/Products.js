@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "../axios/instance";
-import Navbar from "../components/Navbar";
 import styled from "styled-components";
-import ProductItem from "../components/ProductItem";
-import Footer from "../components/Footer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
+import Navbar from "../components/Navbar";
+import ProductItem from "../components/ProductItem";
+import Footer from "../components/Footer";
 import SideBar from "../components/SideBar";
+import Loading from "../components/Loading";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -16,7 +17,8 @@ const Products = () => {
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+
+  const { setLoading } = useAuthContext();
 
   const getProducts = async () => {
     try {
@@ -48,46 +50,28 @@ const Products = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
-  if (products.length === 0) {
-    return <h1>No product found</h1>;
-  }
-
   return (
     <Wrapper>
-      <Container>
-        <Navbar />
-        <div className="mainContent">
-          <SideBar category={category} />
-          <ProductItem product={products} />
-        </div>
-        <Footer />
-      </Container>
-      {/* {products.map((product) => {
-        return (
-          <article
-            key={product.productid}
-            style={{
-              border: '1px solid black',
-              padding: '15px',
-              margin: '10px',
-            }}
-          >
-            <img
-              src={`http://localhost:4000/static/productImages/${product.productimage}`}
-              alt=''
-            />
-            <h2>Name: {product.productname}</h2>
-            <h3>Pharmacy: {product.pharmacyname}</h3>
-            <h3>Price: {product.productprice} FCFA</h3>
-            <h3>Distance (m): {product.distance_m}</h3>
-            <h3>Quantity Available: {product.productamount}</h3>
-          </article>
-        );
-      })} */}
+      {/* <Loading /> */}
+      {products.length === 0 ? (
+        <Container>
+          <Navbar />
+          <div className="mainContent">
+            <SideBar category={category} />
+            <h1>No product found</h1>
+          </div>
+          <Footer />
+        </Container>
+      ) : (
+        <Container>
+          <Navbar />
+          <div className="mainContent">
+            <SideBar category={category} />
+            <ProductItem product={products} />
+          </div>
+          <Footer />
+        </Container>
+      )}
     </Wrapper>
   );
 };
@@ -96,6 +80,10 @@ export default Products;
 const Wrapper = styled.section`
   .mainContent {
     display: flex;
+  }
+
+  h1 {
+    margin: 25%;
   }
 `;
 

@@ -44,7 +44,6 @@ const Navbar = () => {
     <div>
       {user.email ? (
         <HeaderNav>
-          <Loading />
           <FollowUs>
             <span>follow us on</span>
             <LogoImg src="/icons/instagram.png" alt="instagram Image" />
@@ -158,7 +157,7 @@ const ButtonsDiv = styled.div`
 const NavButtons = styled(Link)`
   padding: 2px 30px;
   border-radius: 15px;
-  border: 1px solid white;
+  border: 2px solid white;
   color: inherit;
   text-decoration: none;
   margin: 0 25px;

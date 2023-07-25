@@ -44,7 +44,7 @@ const AppProductsItems = styled.div`
   display: grid;
   gap: 100px 20px;
   grid-template-columns: auto auto auto;
-  padding: 0 5% 30px 5%;
+  padding: 0 2% 30px 2%;
   height: 70%;
   color: darkgrey;
 
@@ -74,6 +74,7 @@ const AppProductsItems = styled.div`
     padding: 5% 5%;
     justify-content: center;
     font-weight: light;
+    color: #717171;
   }
 
   .productName {

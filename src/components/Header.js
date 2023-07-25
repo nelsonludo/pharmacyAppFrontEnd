@@ -43,7 +43,7 @@ export default Header;
 const specialorange = "#ff9100";
 
 const Headboard = styled.div`
-  background-image: url(/images/guy.png);
+  background-image: url(/images/guy.jpg);
   height: 450px;
   color: white;
   display: flex;
