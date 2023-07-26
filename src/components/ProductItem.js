@@ -1,30 +1,42 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import styled from "styled-components";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const ProductItem = ({ product }) => {
+  const { addToCart } = useAuthContext();
+
+  console.log(product);
   return (
     <AppProductsItems>
       {product.map((item) => (
-        <div key={item.id} className="productsContainer">
-          <div className="subProductContainer1">
-            <img alt="aProduct" src="/images/doliprane.png" />
+        <div key={item.id} className='productsContainer'>
+          <div className='subProductContainer1'>
+            <img
+              alt='aProduct'
+              src={`http://localhost:4000/static/productImages/${item.productimage}`}
+            />
           </div>
-          <div className="subProductContainer2">
-            <span className="productDescription">
+          <div className='subProductContainer2'>
+            <span className='productDescription'>
               lorem ipsum this is a description that is very long and uselessly
               useless but very essential
             </span>
-            <span className="productName">{item.productname}</span>
+            <span className='productName'>{item.productname}</span>
             <span>Pharmacy: {item.pharmacyname}</span>
             <span>Distance (m):{item.distance_m}</span>
-            <div className="priceAndButton">
-              <h2 className="productPrice">
+            <div className='priceAndButton'>
+              <h2 className='productPrice'>
                 {item.productprice}
-                <span className="frs">frs</span>
+                <span className='frs'>frs</span>
               </h2>
-              <button className="getIt">get it</button>
+              <button
+                className='getIt'
+                onClick={() => addToCart({ ...item, productamount: 1 })}
+              >
+                Add to Cart
+              </button>
             </div>
             <span>{item.productamount} still available</span>
           </div>
@@ -36,8 +48,8 @@ const ProductItem = ({ product }) => {
 
 export default ProductItem;
 
-const navyBlue = "#3c6579";
-const specialorange = "#ff9100";
+const navyBlue = '#3c6579';
+const specialorange = '#ff9100';
 
 const AppProductsItems = styled.div`
   width: 80%;

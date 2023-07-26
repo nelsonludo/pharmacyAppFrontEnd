@@ -20,6 +20,7 @@ import SystemAdminDrugs from './components/SystemAdmin/SystemAdminDrugs';
 import Loading from './components/Loading';
 import PharmacyAdminProducts from './components/PharmacyAdmin/PharmacyAdminProducts';
 import PharmacyAdminCashiers from './components/PharmacyAdmin/PharmacyAdminCashiers';
+import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/products' element={<Products />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/cart' element={<Cart />} />
         <Route path='/unauthorized' element={<Unauthorized />} />
 
         {/* SYSTEM ADMIN ROUTES */}

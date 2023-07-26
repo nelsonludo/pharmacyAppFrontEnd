@@ -1,13 +1,13 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import SearchBar from "./SearchBar";
-import { useAuthContext } from "../contexts/AuthContext";
-import styled from "styled-components";
-import axios from "../axios/instance";
-import Loading from "./Loading";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import SearchBar from './SearchBar';
+import { useAuthContext } from '../contexts/AuthContext';
+import styled from 'styled-components';
+import axios from '../axios/instance';
+import Loading from './Loading';
 
 const Navbar = () => {
-  const { user, dispatch, category, setLoading } = useAuthContext();
+  const { user, dispatch, category, setLoading, cart } = useAuthContext();
   const navigate = useNavigate();
 
   const logout = async () => {
@@ -18,13 +18,13 @@ const Navbar = () => {
         {},
         {
           headers: {
-            Authorization: "Bearer " + user.accessToken,
+            Authorization: 'Bearer ' + user.accessToken,
           },
         }
       );
-      localStorage.removeItem("info");
-      dispatch({ type: "UNSET_USER" });
-      navigate("/");
+      localStorage.removeItem('info');
+      dispatch({ type: 'UNSET_USER' });
+      navigate('/');
     } catch (error) {
       console.log(error);
     } finally {
@@ -33,11 +33,11 @@ const Navbar = () => {
   };
 
   const searchWithCategory = (categoryName) => {
-    if (categoryName === "") {
+    if (categoryName === '') {
       return;
     }
 
-    navigate("/products", { state: { name: "", category: categoryName } });
+    navigate('/products', { state: { name: '', category: categoryName } });
   };
 
   return (
@@ -46,20 +46,20 @@ const Navbar = () => {
         <HeaderNav>
           <FollowUs>
             <span>follow us on</span>
-            <LogoImg src="/icons/instagram.png" alt="instagram Image" />
-            <LogoImg src="/icons/facebook.png" alt="facebook Image" />
-            <LogoImg src="/icons/tiktok.png" alt="tiktok Image" />
-            <LogoImg src="/icons/linkedIn.png" alt="linkedIn Image" />
+            <LogoImg src='/icons/instagram.png' alt='instagram Image' />
+            <LogoImg src='/icons/facebook.png' alt='facebook Image' />
+            <LogoImg src='/icons/tiktok.png' alt='tiktok Image' />
+            <LogoImg src='/icons/linkedIn.png' alt='linkedIn Image' />
           </FollowUs>
           <ButtonsDiv>
             {/* <NavButtons>contact us</NavButtons> */}
-            {user.title === "systemAdmin" && (
-              <NavButtons to={"/systemAdmin/pharmacies"}>Dashboard</NavButtons>
+            {user.title === 'systemAdmin' && (
+              <NavButtons to={'/systemAdmin/pharmacies'}>Dashboard</NavButtons>
             )}
-            {user.title === "pharmacyAdmin" && (
-              <NavButtons to={"/pharmacyAdmin/products"}>Dashboard</NavButtons>
+            {user.title === 'pharmacyAdmin' && (
+              <NavButtons to={'/pharmacyAdmin/products'}>Dashboard</NavButtons>
             )}
-            <button className="logout" onClick={logout}>
+            <button className='logout' onClick={logout}>
               Logout
             </button>
           </ButtonsDiv>
@@ -68,14 +68,14 @@ const Navbar = () => {
         <HeaderNav>
           <FollowUs>
             <span>follow us on</span>
-            <LogoImg src="/icons/instagram.png" alt="instagram Image" />
-            <LogoImg src="/icons/facebook.png" alt="facebook Image" />
-            <LogoImg src="/icons/tiktok.png" alt="tiktok Image" />
-            <LogoImg src="/icons/linkedIn.png" alt="linkedIn Image" />
+            <LogoImg src='/icons/instagram.png' alt='instagram Image' />
+            <LogoImg src='/icons/facebook.png' alt='facebook Image' />
+            <LogoImg src='/icons/tiktok.png' alt='tiktok Image' />
+            <LogoImg src='/icons/linkedIn.png' alt='linkedIn Image' />
           </FollowUs>
           <ButtonsDiv>
             {/* <NavButtons>contact us</NavButtons> */}
-            <Login to="/login" className="login">
+            <Login to='/login' className='login'>
               Login
             </Login>
           </ButtonsDiv>
@@ -83,14 +83,16 @@ const Navbar = () => {
       )}
 
       <HeaderSearch>
-        <img src="/images/logo.png" className="logo" alt="logo" />
+        <Link to={'/'}>
+          <img src='/images/logo.png' className='logo' alt='logo' />
+        </Link>
         <SearchBar />
         <div>
           <Selects
-            name="categories"
+            name='categories'
             onChange={(e) => searchWithCategory(e.target.value)}
           >
-            <option value="">Category</option>
+            <option value=''>Category</option>
             {category.map((item, index) => {
               return (
                 <option key={index} value={item.id}>
@@ -99,12 +101,15 @@ const Navbar = () => {
               );
             })}
           </Selects>
-          <Link to="AboutUs" className="otherLinks" name="AboutUs">
+          <Link to={'/cart'} className='otherLinks'>
+            Cart ({cart.length})
+          </Link>
+          {/* <Link to='AboutUs' className='otherLinks' name='AboutUs'>
             About us
           </Link>
-          <Link to="OurServices" className="otherLinks" name="OurSevices">
+          <Link to='OurServices' className='otherLinks' name='OurSevices'>
             Our services
-          </Link>
+          </Link> */}
         </div>
       </HeaderSearch>
     </div>
@@ -113,8 +118,8 @@ const Navbar = () => {
 
 export default Navbar;
 
-const navyBlue = "#3c6579";
-const specialorange = "#ff9100";
+const navyBlue = '#3c6579';
+const specialorange = '#ff9100';
 
 const HeaderNav = styled.div`
   background-color: ${navyBlue};
@@ -198,7 +203,7 @@ const Selects = styled.select`
   border: none;
   margin: 0 15px;
   font-size: 130%;
-  width: 18%;
+  width: 25%;
 
   :focus {
     outline: none;

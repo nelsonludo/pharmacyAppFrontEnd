@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import axios from "../axios/instance";
-import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthContext";
-import Loading from "../components/Loading";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import axios from '../axios/instance';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
+import Loading from '../components/Loading';
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
-  const [title, setTitle] = useState("customer");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
+  const [title, setTitle] = useState('customer');
 
   const navigate = useNavigate();
-  const { setLoading } = useAuthContext();
+  const { setLoading, dispatch } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password || !title || !userName) {
-      alert("please enter both email, password and title");
+      alert('please enter both email, password and title');
     }
 
     try {
@@ -29,8 +29,22 @@ const Signup = () => {
         name: userName,
       });
       console.log(data);
-      navigate("/");
-      // login the user axios.post(`/customer/login`
+      // Now login the user autotically
+      try {
+        setLoading(true);
+        const { data } = await axios.post(`/${title}/login`, {
+          email,
+          password,
+        });
+
+        localStorage.setItem('info', JSON.stringify(data.title));
+        dispatch({ type: 'SET_USER', payload: data });
+        navigate('/');
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -41,42 +55,42 @@ const Signup = () => {
   return (
     <Wrapper>
       <Loading />
-      <div className="mainContainer">
-        <div className="signupHead">
+      <div className='mainContainer'>
+        <div className='signupHead'>
           <h1>Sign Up</h1>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="secondContainer">
+          <div className='secondContainer'>
             <label>Name</label>
             <input
-              type="text"
-              name="name"
-              id="name"
+              type='text'
+              name='name'
+              id='name'
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
-          <div className="secondContainer">
+          <div className='secondContainer'>
             <label>Email</label>
             <input
-              type="email"
-              name="email"
-              id="email"
+              type='email'
+              name='email'
+              id='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="secondContainer">
+          <div className='secondContainer'>
             <label>Password</label>
             <input
-              type="password"
-              name="password"
-              id="password"
+              type='password'
+              name='password'
+              id='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button type="submit">Signup</button>
+          <button type='submit'>Signup</button>
         </form>
       </div>
     </Wrapper>
@@ -85,8 +99,8 @@ const Signup = () => {
 
 export default Signup;
 
-const navyBlue = "#3c6579";
-const specialorange = "#ff9100";
+const navyBlue = '#3c6579';
+const specialorange = '#ff9100';
 
 const Wrapper = styled.section`
   display: flex;

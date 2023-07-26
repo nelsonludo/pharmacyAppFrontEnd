@@ -25,6 +25,28 @@ const AuthProvider = ({ children }) => {
   const [loggedin, setLoggedin] = useState(false);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [cart, setCart] = useState([]);
+  const [cartTotalAmount, setCartTotalAmount] = useState(0);
+  const [cartTotalPrice, setCartTotalPrice] = useState(0);
+
+  const calculateCartTotal = () => {
+    const cartAmount = cart.reduce((total, item) => {
+      total += item.amount;
+      return total;
+    }, 0);
+
+    const cartTotalPrice = cart.reduce((total, item) => {
+      total += item.price * item.productamount;
+      return total;
+    }, 0);
+
+    setCartTotalAmount(cartAmount);
+    setCartTotalPrice(cartTotalPrice);
+  };
+
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
 
   const refreshToken = async (link) => {
     try {
@@ -57,6 +79,10 @@ const AuthProvider = ({ children }) => {
       .catch((error) => console.error(error));
   }, []);
 
+  useEffect(() => {
+    calculateCartTotal();
+  }, [cart]);
+
   return (
     <AuthContext.Provider
       value={{
@@ -69,6 +95,10 @@ const AuthProvider = ({ children }) => {
         category,
         loading,
         setLoading,
+        cart,
+        cartTotalAmount,
+        cartTotalPrice,
+        addToCart,
       }}
     >
       {children}
