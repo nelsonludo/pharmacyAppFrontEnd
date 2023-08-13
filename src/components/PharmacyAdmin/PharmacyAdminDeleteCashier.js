@@ -1,25 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../../contexts/AuthContext';
-import axios from '../../axios/instance';
+import useAxios from '../../hooks/useAxios';
 
 const PharmacyAdminDeleteCashier = ({
   deleteCashier,
   setDeleteCashier,
   getAllCashiers,
 }) => {
-  const { user, setLoading } = useAuthContext();
+  const { setLoading } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const handleDeleteProduct = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.delete(
-        `/pharmacyAdmin/deleteCachier/${deleteCashier.cashier.id}`,
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
-        }
+      const { data } = await axiosPrivate.delete(
+        `/pharmacyAdmin/deleteCachier/${deleteCashier.cashier.id}`
       );
       getAllCashiers();
       setDeleteCashier({ show: false, cashier: {} });

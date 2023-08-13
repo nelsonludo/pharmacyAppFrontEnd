@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from '../axios/instance';
+import useAxios from '../hooks/useAxios';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import Loading from '../components/Loading';
@@ -13,6 +13,7 @@ const Signup = () => {
 
   const navigate = useNavigate();
   const { setLoading, dispatch } = useAuthContext();
+  const { axios } = useAxios();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

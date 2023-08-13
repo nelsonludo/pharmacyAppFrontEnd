@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import axios from '../../axios/instance';
 import { useAuthContext } from '../../contexts/AuthContext';
+import useAxios from '../../hooks/useAxios';
 
 const PharmacyAdminCreateProduct = ({ setCreateProduct, getAllProducts }) => {
   const [drugList, setDrugList] = useState([]);
@@ -9,16 +9,13 @@ const PharmacyAdminCreateProduct = ({ setCreateProduct, getAllProducts }) => {
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState(1);
 
-  const { user, setLoading } = useAuthContext();
+  const { setLoading } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const getDrugsList = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`/pharmacyAdmin/seeDrugList`, {
-        headers: {
-          Authorization: 'Bearer ' + user.accessToken,
-        },
-      });
+      const { data } = await axiosPrivate.get(`/pharmacyAdmin/seeDrugList`);
       setDrugList(data);
     } catch (error) {
       console.log(error);
@@ -37,19 +34,11 @@ const PharmacyAdminCreateProduct = ({ setCreateProduct, getAllProducts }) => {
 
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        `/pharmacyAdmin/createProduct`,
-        {
-          productId,
-          price: parseFloat(price),
-          amount: parseInt(amount),
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
-        }
-      );
+      const { data } = await axiosPrivate.post(`/pharmacyAdmin/createProduct`, {
+        productId,
+        price: parseFloat(price),
+        amount: parseInt(amount),
+      });
       getAllProducts();
       alert('Drug has been created');
     } catch (error) {

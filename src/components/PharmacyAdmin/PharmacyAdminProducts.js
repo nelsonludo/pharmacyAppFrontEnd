@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { Pagination } from '@mui/material';
-import axios from '../../axios/instance';
+import useAxios from '../../hooks/useAxios';
 import { useAuthContext } from '../../contexts/AuthContext';
 import PharmacyAdminCreateProduct from './PharmacyAdminCreateProduct';
 import PharmacyAdminDeleteProduct from './PharmacyAdminDeleteProduct';
@@ -21,18 +21,14 @@ const PharmacyAdminProducts = () => {
     product: {},
   });
 
-  const { user, setLoading } = useAuthContext();
+  const { setLoading } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const getAllProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(
-        `/pharmacyAdmin/seeOurProducts?name=${name}&page=${page}`,
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
-        }
+      const { data } = await axiosPrivate.get(
+        `/pharmacyAdmin/seeOurProducts?name=${name}&page=${page}`
       );
       setProducts(data);
     } catch (error) {

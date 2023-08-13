@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from '../../axios/instance';
+import useAxios from '../../hooks/useAxios';
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const SystemAdminUpdatePharmacy = ({
@@ -19,7 +19,8 @@ const SystemAdminUpdatePharmacy = ({
   const [latitude, setLatitude] = useState(updatePharmacy.pharmacy.latitude);
   const [longitude, setLongitude] = useState(updatePharmacy.pharmacy.longitude);
 
-  const { user, setLoading } = useAuthContext();
+  const { setLoading } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const handleUpdatePharmacy = async (e) => {
     e.preventDefault();
@@ -39,7 +40,7 @@ const SystemAdminUpdatePharmacy = ({
 
     try {
       setLoading(true);
-      const { data } = await axios.put(
+      const { data } = await axiosPrivate.put(
         `/systemAdmin/updatePharmacy/${updatePharmacy.pharmacy.id}`,
         {
           name,
@@ -50,11 +51,6 @@ const SystemAdminUpdatePharmacy = ({
           allNight,
           latitude: parseFloat(latitude),
           longitude: parseFloat(longitude),
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
         }
       );
       getAllPharmacies();

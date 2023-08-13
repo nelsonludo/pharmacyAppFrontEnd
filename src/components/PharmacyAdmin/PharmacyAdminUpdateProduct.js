@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from '../../axios/instance';
+import useAxios from '../../hooks/useAxios';
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const PharmacyAdminUpdateProduct = ({
@@ -11,7 +11,8 @@ const PharmacyAdminUpdateProduct = ({
   const [price, setPrice] = useState(updateProduct.product.price);
   const [amount, setAmount] = useState(updateProduct.product.amount);
 
-  const { user, setLoading, category } = useAuthContext();
+  const { setLoading } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const handleUpdateProduct = async (e) => {
     e.preventDefault();
@@ -23,16 +24,11 @@ const PharmacyAdminUpdateProduct = ({
 
     try {
       setLoading(true);
-      const { data } = await axios.put(
+      const { data } = await axiosPrivate.put(
         `/pharmacyAdmin/updateProduct/${updateProduct.product.id}`,
         {
           price: parseFloat(price),
           amount: parseInt(amount),
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
         }
       );
       getAllProducts();

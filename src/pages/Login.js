@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import axios from "../axios/instance";
-import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthContext";
-import Loading from "../components/Loading";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import useAxios from '../hooks/useAxios';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
+import Loading from '../components/Loading';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [title, setTitle] = useState("customer");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [title, setTitle] = useState('customer');
 
   const navigate = useNavigate();
   const { dispatch, setLoading } = useAuthContext();
+  const { axios } = useAxios();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password || !title) {
-      alert("please enter both email, password and title");
+      alert('please enter both email, password and title');
     }
 
     try {
@@ -27,9 +28,9 @@ const Login = () => {
         password,
       });
 
-      localStorage.setItem("info", JSON.stringify(data.title));
-      dispatch({ type: "SET_USER", payload: data });
-      navigate("/");
+      localStorage.setItem('info', JSON.stringify(data.title));
+      dispatch({ type: 'SET_USER', payload: data });
+      navigate('/');
     } catch (error) {
       console.log(error);
     } finally {
@@ -40,48 +41,48 @@ const Login = () => {
   return (
     <Wrapper>
       <Loading />
-      <div className="mainContainer">
-        <div className="signupHead">
+      <div className='mainContainer'>
+        <div className='signupHead'>
           <h1>Login</h1>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="secondContainer">
+          <div className='secondContainer'>
             <label>Email</label>
             <input
-              type="email"
-              name="email"
-              id="email"
+              type='email'
+              name='email'
+              id='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="secondContainer">
+          <div className='secondContainer'>
             <label>Password</label>
             <input
-              type="password"
-              name="password"
-              id="password"
+              type='password'
+              name='password'
+              id='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="secondContainer">
+          <div className='secondContainer'>
             <label>Title</label>
             <select
-              className="i"
-              name="title"
-              id="title"
+              className='i'
+              name='title'
+              id='title'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             >
-              <option value={"customer"}>Customer</option>
-              <option value={"cachier"}>Cachier</option>
-              <option value={"pharmacyAdmin"}>Pharmacy Admin</option>
-              <option value={"systemAdmin"}>System Admin</option>
+              <option value={'customer'}>Customer</option>
+              <option value={'cachier'}>Cachier</option>
+              <option value={'pharmacyAdmin'}>Pharmacy Admin</option>
+              <option value={'systemAdmin'}>System Admin</option>
             </select>
           </div>
 
-          <button type="submit">Login</button>
+          <button type='submit'>Login</button>
         </form>
       </div>
     </Wrapper>
@@ -90,8 +91,8 @@ const Login = () => {
 
 export default Login;
 
-const navyBlue = "#3c6579";
-const specialorange = "#ff9100";
+const navyBlue = '#3c6579';
+const specialorange = '#ff9100';
 
 const Wrapper = styled.section`
   display: flex;

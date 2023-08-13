@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { Pagination } from '@mui/material';
-import axios from '../../axios/instance';
 import { useAuthContext } from '../../contexts/AuthContext';
+import useAxios from '../../hooks/useAxios';
 import PharmacyAdminCreateCashier from './PharmacyAdminCreateCashier';
 import PharmacyAdminDeleteCashier from './PharmacyAdminDeleteCashier';
 
@@ -16,16 +16,13 @@ const PharmacyAdminCashiers = () => {
     cashier: {},
   });
 
-  const { user, setLoading } = useAuthContext();
+  const { setLoading } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const getAllCashiers = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`/pharmacyAdmin/seeAllCachiers`, {
-        headers: {
-          Authorization: 'Bearer ' + user.accessToken,
-        },
-      });
+      const { data } = await axiosPrivate.get(`/pharmacyAdmin/seeAllCachiers`);
       setCashiers(data);
     } catch (error) {
       console.log(error);

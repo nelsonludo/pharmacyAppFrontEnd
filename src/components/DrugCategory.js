@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const DrugCategory = ({ category }) => {
   return (
@@ -8,16 +8,16 @@ const DrugCategory = ({ category }) => {
       {category.map((item) => (
         <StyledLink
           key={item.id}
-          className="categoryContainer"
-          to={"/products"}
-          state={{ name: "", category: item.id }}
+          className='categoryContainer'
+          to={'/products'}
+          state={{ name: '', category: item.id }}
         >
           <SubCategoryContainer1>
-            <Img alt="aCategory" src={item.imageUrl} />
+            <Img alt='aCategory' src={item.imageUrl} />
           </SubCategoryContainer1>
           <SubCategoryContainer2>
-            <span className="categoryName">{item.name}</span>
-            <span className="categoryDescription">{item.description}</span>
+            <span className='categoryName'>{item.name}</span>
+            <span className='categoryDescription'>{item.description}</span>
           </SubCategoryContainer2>
         </StyledLink>
       ))}
@@ -27,8 +27,8 @@ const DrugCategory = ({ category }) => {
 
 export default DrugCategory;
 
-const navyBlue = "#3c6579";
-const specialorange = "#ff9100";
+const navyBlue = '#3c6579';
+const specialorange = '#ff9100';
 
 const Img = styled.img`
   width: 90px;

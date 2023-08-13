@@ -1,6 +1,6 @@
-import axios from '../axios/instance';
 import React, { useContext, useReducer, useEffect, useState } from 'react';
 import reducer from '../reducers/authReducer';
+import axios from 'axios';
 
 const getInfoFromLocalStorage = () => {
   let info = localStorage.getItem('info');

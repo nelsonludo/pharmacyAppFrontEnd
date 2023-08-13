@@ -1,10 +1,9 @@
-import { useState, useContext } from "react";
-import React from "react";
-import { Link, Navigate } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useState, useContext } from 'react';
+import React from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const SearchBar = () => {
   const [products, setProducts] = useState([]);
@@ -21,8 +20,8 @@ const SearchBar = () => {
 
   const submitHandle = (e) => {
     e.preventDefault();
-    navigate("/products", {
-      state: { name: searchValue, category: "" },
+    navigate('/products', {
+      state: { name: searchValue, category: '' },
     });
   };
 
@@ -30,13 +29,13 @@ const SearchBar = () => {
     <form onSubmit={submitHandle}>
       <SearchContainer>
         <input
-          type="text"
-          placeholder="search drug here"
-          className="searchProductInput"
+          type='text'
+          placeholder='search drug here'
+          className='searchProductInput'
           onChange={searchHandle}
         />
-        <button name="searchButton" type="submit">
-          <img alt="seach Image" src="/images/loupe.png" />
+        <button name='searchButton' type='submit'>
+          <img alt='seach Image' src='/images/loupe.png' />
         </button>
       </SearchContainer>
     </form>
@@ -45,7 +44,7 @@ const SearchBar = () => {
 
 export default SearchBar;
 
-const navyBlue = "#3c6579";
+const navyBlue = '#3c6579';
 
 const SearchContainer = styled.div`
   border: 2px solid ${navyBlue};

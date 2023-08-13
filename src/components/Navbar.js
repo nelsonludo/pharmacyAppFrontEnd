@@ -3,25 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import { useAuthContext } from '../contexts/AuthContext';
 import styled from 'styled-components';
-import axios from '../axios/instance';
-import Loading from './Loading';
+import useAxios from '../hooks/useAxios';
 
 const Navbar = () => {
   const { user, dispatch, category, setLoading, cart } = useAuthContext();
+  const { axiosPrivate } = useAxios();
   const navigate = useNavigate();
 
   const logout = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        `/${user.title}/logout`,
-        {},
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
-        }
-      );
+      const { data } = await axiosPrivate.post(`/${user.title}/logout`, {});
       localStorage.removeItem('info');
       dispatch({ type: 'UNSET_USER' });
       navigate('/');

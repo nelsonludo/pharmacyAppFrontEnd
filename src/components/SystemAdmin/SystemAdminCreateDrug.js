@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from '../../axios/instance';
+import useAxios from '../../hooks/useAxios';
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const SystemAdminCreateDrug = ({ setCreateDrug, getAllDrugs }) => {
@@ -9,7 +9,8 @@ const SystemAdminCreateDrug = ({ setCreateDrug, getAllDrugs }) => {
   const [categoryId, setCategoryId] = useState('');
   const [normalPrice, setNormalPrice] = useState(0);
 
-  const { user, setLoading, category } = useAuthContext();
+  const { setLoading, category } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const handleCreateDrug = async (e) => {
     e.preventDefault();
@@ -21,20 +22,12 @@ const SystemAdminCreateDrug = ({ setCreateDrug, getAllDrugs }) => {
 
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        `/systemAdmin/createProduct`,
-        {
-          name,
-          description,
-          category: categoryId,
-          normalPrice: parseFloat(normalPrice),
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
-        }
-      );
+      const { data } = await axiosPrivate.post(`/systemAdmin/createProduct`, {
+        name,
+        description,
+        category: categoryId,
+        normalPrice: parseFloat(normalPrice),
+      });
       getAllDrugs();
       setCreateDrug(false);
       alert('Drug has been created');

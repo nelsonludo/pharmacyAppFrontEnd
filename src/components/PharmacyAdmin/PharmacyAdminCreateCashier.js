@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from '../../axios/instance';
 import { useAuthContext } from '../../contexts/AuthContext';
+import useAxios from '../../hooks/useAxios';
 
 const PharmacyAdminCreateCashier = ({ setCreateCashier, getAllCashiers }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { user, setLoading } = useAuthContext();
+  const { setLoading } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const handleCreateCashier = async (e) => {
     e.preventDefault();
@@ -20,19 +21,11 @@ const PharmacyAdminCreateCashier = ({ setCreateCashier, getAllCashiers }) => {
 
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        `/pharmacyAdmin/createCachier`,
-        {
-          name,
-          email,
-          password,
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
-        }
-      );
+      await axiosPrivate.post(`/pharmacyAdmin/createCachier`, {
+        name,
+        email,
+        password,
+      });
       getAllCashiers();
       alert('Cashier has been created');
     } catch (error) {

@@ -1,9 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
-import styled from "styled-components";
-import { useAuthContext } from "../contexts/AuthContext";
-import Header from "../components/Header";
-import DrugCategory from "../components/DrugCategory";
-import Footer from "../components/Footer";
+import React from 'react';
+import styled from 'styled-components';
+import { useAuthContext } from '../contexts/AuthContext';
+import Header from '../components/Header';
+import DrugCategory from '../components/DrugCategory';
+import Footer from '../components/Footer';
 
 const Home = () => {
   const { category } = useAuthContext();

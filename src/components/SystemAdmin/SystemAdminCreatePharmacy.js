@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from '../../axios/instance';
+import useAxios from '../../hooks/useAxios';
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
@@ -16,7 +16,8 @@ const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
   const [pharmacyAdminEmail, setPharmacyAdminEmail] = useState('');
   const [pharmacyAdminPassword, setPharmacyAdminPassword] = useState('');
 
-  const { user, setLoading } = useAuthContext();
+  const { setLoading } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const handleCreatePharmacy = async (e) => {
     e.preventDefault();
@@ -39,27 +40,19 @@ const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
 
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        `/systemAdmin/createPharmacy`,
-        {
-          pharmacyName,
-          pharmacyEmail,
-          pharmacyPhoneNumber,
-          pharmacyAddress,
-          pharmacyHourly,
-          pharmacyAdminName,
-          pharmacyAdminEmail,
-          pharmacyAdminPassword,
-          pharmacyAllNight,
-          pharmacyLatitude: parseFloat(pharmacyLatitude),
-          pharmacyLongitude: parseFloat(pharmacyLongitude),
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
-        }
-      );
+      const { data } = await axiosPrivate.post(`/systemAdmin/createPharmacy`, {
+        pharmacyName,
+        pharmacyEmail,
+        pharmacyPhoneNumber,
+        pharmacyAddress,
+        pharmacyHourly,
+        pharmacyAdminName,
+        pharmacyAdminEmail,
+        pharmacyAdminPassword,
+        pharmacyAllNight,
+        pharmacyLatitude: parseFloat(pharmacyLatitude),
+        pharmacyLongitude: parseFloat(pharmacyLongitude),
+      });
       getAllPharmacies();
       setCreatePharmacy(false);
       alert('Pharmacy has been created');

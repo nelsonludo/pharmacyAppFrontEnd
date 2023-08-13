@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from '../../axios/instance';
+import useAxios from '../../hooks/useAxios';
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const SystemAdminUpdateDrug = ({ updateDrug, setUpdateDrug, getAllDrugs }) => {
@@ -9,7 +9,8 @@ const SystemAdminUpdateDrug = ({ updateDrug, setUpdateDrug, getAllDrugs }) => {
   const [categoryId, setCategoryId] = useState(updateDrug.drug.category);
   const [normalPrice, setNormalPrice] = useState(updateDrug.drug.normalPrice);
 
-  const { user, setLoading, category } = useAuthContext();
+  const { setLoading, category } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const handleUpdateDrug = async (e) => {
     e.preventDefault();
@@ -21,18 +22,13 @@ const SystemAdminUpdateDrug = ({ updateDrug, setUpdateDrug, getAllDrugs }) => {
 
     try {
       setLoading(true);
-      const { data } = await axios.put(
+      const { data } = await axiosPrivate.put(
         `/systemAdmin/updateProduct/${updateDrug.drug.id}`,
         {
           name,
           description,
           category: categoryId,
           normalPrice: parseFloat(normalPrice),
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
         }
       );
       getAllDrugs();

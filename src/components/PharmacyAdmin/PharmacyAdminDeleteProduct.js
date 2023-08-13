@@ -1,25 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../../contexts/AuthContext';
-import axios from '../../axios/instance';
+import useAxios from '../../hooks/useAxios';
 
 const PharmacyAdminDeleteProduct = ({
   deleteProduct,
   setDeleteProduct,
   getAllProducts,
 }) => {
-  const { user, setLoading } = useAuthContext();
+  const { setLoading } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const handleDeleteProduct = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.delete(
-        `/pharmacyAdmin/deleteProduct/${deleteProduct.product.id}`,
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
-        }
+      const { data } = await axiosPrivate.delete(
+        `/pharmacyAdmin/deleteProduct/${deleteProduct.product.id}`
       );
       getAllProducts();
       setDeleteProduct({ show: false, product: {} });

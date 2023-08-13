@@ -1,15 +1,13 @@
-import { useState, useEffect } from "react";
-import React from "react";
-import { Link } from "react-router-dom";
-import axios from "../axios/instance";
-import styled from "styled-components";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthContext";
-import Navbar from "../components/Navbar";
-import ProductItem from "../components/ProductItem";
-import Footer from "../components/Footer";
-import SideBar from "../components/SideBar";
-import Loading from "../components/Loading";
+import { useState, useEffect } from 'react';
+import React from 'react';
+import useAxios from '../hooks/useAxios';
+import styled from 'styled-components';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
+import Navbar from '../components/Navbar';
+import ProductItem from '../components/ProductItem';
+import Footer from '../components/Footer';
+import SideBar from '../components/SideBar';
 
 const Products = () => {
   const navigate = useNavigate();
@@ -19,6 +17,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
 
   const { setLoading } = useAuthContext();
+  const { axios } = useAxios();
 
   const getProducts = async () => {
     try {
@@ -45,7 +44,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("/category")
+      .get('/category')
       .then((response) => setCategory(response.data))
       .catch((error) => console.error(error));
   }, []);
@@ -56,7 +55,7 @@ const Products = () => {
       {products.length === 0 ? (
         <Container>
           <Navbar />
-          <div className="mainContent">
+          <div className='mainContent'>
             <SideBar category={category} />
             <h1>No product found</h1>
           </div>
@@ -65,7 +64,7 @@ const Products = () => {
       ) : (
         <Container>
           <Navbar />
-          <div className="mainContent">
+          <div className='mainContent'>
             <SideBar category={category} />
             <ProductItem product={products} />
           </div>

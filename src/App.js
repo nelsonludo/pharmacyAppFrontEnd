@@ -66,3 +66,6 @@ function App() {
 }
 
 export default App;
+
+// Refactor axios to use the custome axios hook.
+// Refactor all the global stuff to use useReducer.

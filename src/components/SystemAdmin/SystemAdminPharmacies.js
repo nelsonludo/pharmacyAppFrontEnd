@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { Pagination } from '@mui/material';
-import axios from '../../axios/instance';
+import useAxios from '../../hooks/useAxios';
 import { useAuthContext } from '../../contexts/AuthContext';
 import SystemAdminCreatePharmacy from './SystemAdminCreatePharmacy';
 import SystemAdminDeletePharmacy from './SystemAdminDeletePharmacy';
@@ -21,18 +21,14 @@ const SystemAdminPharmacies = () => {
     pharmacy: {},
   });
 
-  const { user, setLoading } = useAuthContext();
+  const { setLoading } = useAuthContext();
+  const { axiosPrivate } = useAxios();
 
   const getAllPharmacies = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(
-        `/systemAdmin/allPharmacies?name=${name}&page=${page}`,
-        {
-          headers: {
-            Authorization: 'Bearer ' + user.accessToken,
-          },
-        }
+      const { data } = await axiosPrivate.get(
+        `/systemAdmin/allPharmacies?name=${name}&page=${page}`
       );
       setPharmacies(data);
     } catch (error) {
