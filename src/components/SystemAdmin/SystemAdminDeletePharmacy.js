@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../../contexts/AuthContext';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const SystemAdminDeletePharmacy = ({
   deletePharmacy,
   setDeletePharmacy,
   getAllPharmacies,
 }) => {
-  const { setLoading, axiosPrivate } = useAuthContext();
+  const { dispatch, axiosPrivate } = useAuthContext();
 
   const handleDeletePharmacy = async () => {
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.delete(
         `/systemAdmin/deletePharmacy/${deletePharmacy.pharmacy.id}`
       );
@@ -22,7 +23,7 @@ const SystemAdminDeletePharmacy = ({
       console.log(error);
       alert('An error has occured');
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

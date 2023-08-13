@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useAuthContext } from '../../contexts/AuthContext';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
   const [pharmacyName, setPharmacyName] = useState('');
@@ -16,7 +17,7 @@ const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
   const [pharmacyAdminEmail, setPharmacyAdminEmail] = useState('');
   const [pharmacyAdminPassword, setPharmacyAdminPassword] = useState('');
 
-  const { setLoading, axiosPrivate } = useAuthContext();
+  const { dispatch, axiosPrivate } = useAuthContext();
 
   const handleCreatePharmacy = async (e) => {
     e.preventDefault();
@@ -38,7 +39,7 @@ const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
     }
 
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.post(`/systemAdmin/createPharmacy`, {
         pharmacyName,
         pharmacyEmail,
@@ -59,7 +60,7 @@ const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
       console.log(error);
       alert('An error has occured');
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

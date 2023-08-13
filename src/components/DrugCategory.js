@@ -2,22 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const DrugCategory = ({ category }) => {
+const DrugCategory = ({ categories }) => {
   return (
     <AllCategoriesOfDrugs>
-      {category.map((item) => (
+      {categories.map((category) => (
         <StyledLink
-          key={item.id}
+          key={category.id}
           className='categoryContainer'
           to={'/products'}
-          state={{ name: '', category: item.id }}
+          state={{ name: '', category: category.id }}
         >
           <SubCategoryContainer1>
-            <Img alt='aCategory' src={item.imageUrl} />
+            <Img alt='aCategory' src={category.imageUrl} />
           </SubCategoryContainer1>
           <SubCategoryContainer2>
-            <span className='categoryName'>{item.name}</span>
-            <span className='categoryDescription'>{item.description}</span>
+            <span className='categoryName'>{category.name}</span>
+            <span className='categoryDescription'>{category.description}</span>
           </SubCategoryContainer2>
         </StyledLink>
       ))}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useAuthContext } from '../../contexts/AuthContext';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const SystemAdminUpdateDrug = ({ updateDrug, setUpdateDrug, getAllDrugs }) => {
   const [name, setName] = useState(updateDrug.drug.name);
@@ -9,7 +10,7 @@ const SystemAdminUpdateDrug = ({ updateDrug, setUpdateDrug, getAllDrugs }) => {
   const [categoryId, setCategoryId] = useState(updateDrug.drug.category);
   const [normalPrice, setNormalPrice] = useState(updateDrug.drug.normalPrice);
 
-  const { setLoading, category, axiosPrivate } = useAuthContext();
+  const { dispatch, category, axiosPrivate } = useAuthContext();
 
   const handleUpdateDrug = async (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ const SystemAdminUpdateDrug = ({ updateDrug, setUpdateDrug, getAllDrugs }) => {
     }
 
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.put(
         `/systemAdmin/updateProduct/${updateDrug.drug.id}`,
         {
@@ -37,7 +38,7 @@ const SystemAdminUpdateDrug = ({ updateDrug, setUpdateDrug, getAllDrugs }) => {
       console.log(error);
       alert('An error has occured');
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

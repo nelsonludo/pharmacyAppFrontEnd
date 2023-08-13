@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { Pagination } from '@mui/material';
 import { useAuthContext } from '../../contexts/AuthContext';
-
+import { useGlobalContext } from '../../contexts/GlobalContext';
 import PharmacyAdminCreateCashier from './PharmacyAdminCreateCashier';
 import PharmacyAdminDeleteCashier from './PharmacyAdminDeleteCashier';
+import { START_LOADING, STOP_LOADING } from '../../utils/actions';
 
 const PharmacyAdminCashiers = () => {
   const [cashiers, setCashiers] = useState([]);
@@ -16,17 +17,18 @@ const PharmacyAdminCashiers = () => {
     cashier: {},
   });
 
-  const { setLoading, axiosPrivate } = useAuthContext();
+  const { axiosPrivate } = useAuthContext();
+  const { dispatch } = useGlobalContext();
 
   const getAllCashiers = async () => {
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.get(`/pharmacyAdmin/seeAllCachiers`);
       setCashiers(data);
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

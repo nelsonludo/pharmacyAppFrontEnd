@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useAuthContext } from '../../contexts/AuthContext';
+import { useGlobalContext } from '../../contexts/GlobalContext';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const PharmacyAdminUpdateProduct = ({
   updateProduct,
@@ -11,7 +13,8 @@ const PharmacyAdminUpdateProduct = ({
   const [price, setPrice] = useState(updateProduct.product.price);
   const [amount, setAmount] = useState(updateProduct.product.amount);
 
-  const { setLoading, axiosPrivate } = useAuthContext();
+  const { axiosPrivate } = useAuthContext();
+  const { dispatch } = useGlobalContext();
 
   const handleUpdateProduct = async (e) => {
     e.preventDefault();
@@ -22,7 +25,7 @@ const PharmacyAdminUpdateProduct = ({
     }
 
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.put(
         `/pharmacyAdmin/updateProduct/${updateProduct.product.id}`,
         {
@@ -37,7 +40,7 @@ const PharmacyAdminUpdateProduct = ({
       alert(error.response.data.message);
     } finally {
       setUpdateProduct({ show: false, product: {} });
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

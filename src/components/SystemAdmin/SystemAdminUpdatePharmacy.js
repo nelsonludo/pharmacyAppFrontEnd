@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useAuthContext } from '../../contexts/AuthContext';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const SystemAdminUpdatePharmacy = ({
   updatePharmacy,
@@ -19,7 +20,7 @@ const SystemAdminUpdatePharmacy = ({
   const [latitude, setLatitude] = useState(updatePharmacy.pharmacy.latitude);
   const [longitude, setLongitude] = useState(updatePharmacy.pharmacy.longitude);
 
-  const { setLoading, axiosPrivate } = useAuthContext();
+  const { dispatch, axiosPrivate } = useAuthContext();
 
   const handleUpdatePharmacy = async (e) => {
     e.preventDefault();
@@ -38,7 +39,7 @@ const SystemAdminUpdatePharmacy = ({
     }
 
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.put(
         `/systemAdmin/updatePharmacy/${updatePharmacy.pharmacy.id}`,
         {
@@ -59,7 +60,7 @@ const SystemAdminUpdatePharmacy = ({
       console.log(error);
       alert('An error has occured');
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

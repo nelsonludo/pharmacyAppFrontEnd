@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
-import Loading from '../components/Loading';
+import { SET_USER, START_LOADING, STOP_LOADING } from '../utils/actions';
+import { useGlobalContext } from '../contexts/GlobalContext';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +13,8 @@ const Signup = () => {
   const [title, setTitle] = useState('customer');
 
   const navigate = useNavigate();
-  const { setLoading, dispatch, axios } = useAuthContext();
+  const { dispatch, axios } = useAuthContext();
+  const { dispatchGlobal } = useGlobalContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ const Signup = () => {
     }
 
     try {
-      setLoading(true);
+      dispatchGlobal({ type: START_LOADING });
       const { data } = await axios.post(`/customer/`, {
         email,
         password,
@@ -31,30 +33,29 @@ const Signup = () => {
       console.log(data);
       // Now login the user autotically
       try {
-        setLoading(true);
+        dispatchGlobal({ type: START_LOADING });
         const { data } = await axios.post(`/${title}/login`, {
           email,
           password,
         });
 
         localStorage.setItem('info', JSON.stringify(data.title));
-        dispatch({ type: 'SET_USER', payload: data });
+        dispatch({ type: SET_USER, payload: data });
         navigate('/');
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
+        dispatchGlobal({ type: STOP_LOADING });
       }
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      dispatchGlobal({ type: STOP_LOADING });
     }
   };
 
   return (
     <Wrapper>
-      <Loading />
       <div className='mainContainer'>
         <div className='signupHead'>
           <h1>Sign Up</h1>

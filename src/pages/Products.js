@@ -7,6 +7,8 @@ import Navbar from '../components/Navbar';
 import ProductItem from '../components/ProductItem';
 import Footer from '../components/Footer';
 import SideBar from '../components/SideBar';
+import { useGlobalContext } from '../contexts/GlobalContext';
+import { START_LOADING, STOP_LOADING } from '../utils/actions';
 
 const Products = () => {
   const navigate = useNavigate();
@@ -15,24 +17,21 @@ const Products = () => {
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
 
-  const { setLoading, axios } = useAuthContext();
+  const { axios } = useAuthContext();
+  const { dispatch } = useGlobalContext();
 
   const getProducts = async () => {
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
 
-      const { data } = await axios.post(`/product`, {
-        name: state.name,
-        latitude: 3.84548,
-        longitude: 11.520978,
-        page: 1,
-        categoryId: state.category,
-      });
+      const { data } = await axios.get(
+        `/product?name=${state.name}&page=${page}&categoryId=${state.category}&latitude=0.22&longitude=0.88`
+      );
       setProducts(data);
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

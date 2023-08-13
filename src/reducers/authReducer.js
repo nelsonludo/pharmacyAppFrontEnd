@@ -1,9 +1,11 @@
+import { SET_USER, UNSET_USER } from '../utils/actions';
+
 const authReducer = (state, action) => {
-  if (action.type === 'SET_USER') {
+  if (action.type === SET_USER) {
     return { ...state, user: action.payload };
   }
 
-  if (action.type === 'UNSET_USER') {
+  if (action.type === UNSET_USER) {
     return { ...state, user: {} };
   }
 

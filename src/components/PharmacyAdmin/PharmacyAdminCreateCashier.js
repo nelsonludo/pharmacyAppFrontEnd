@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../../contexts/AuthContext';
+import { useGlobalContext } from '../../contexts/GlobalContext';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const PharmacyAdminCreateCashier = ({ setCreateCashier, getAllCashiers }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { setLoading, axiosPrivate } = useAuthContext();
+  const { axiosPrivate } = useAuthContext();
+  const { dispatch } = useGlobalContext();
 
   const handleCreateCashier = async (e) => {
     e.preventDefault();
@@ -18,7 +21,7 @@ const PharmacyAdminCreateCashier = ({ setCreateCashier, getAllCashiers }) => {
     }
 
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       await axiosPrivate.post(`/pharmacyAdmin/createCachier`, {
         name,
         email,
@@ -31,7 +34,7 @@ const PharmacyAdminCreateCashier = ({ setCreateCashier, getAllCashiers }) => {
       alert(error.response.data.message);
     } finally {
       setCreateCashier(false);
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import { useAuthContext } from '../contexts/AuthContext';
 import styled from 'styled-components';
+import { useGlobalContext } from '../contexts/GlobalContext';
+import { UNSET_USER, START_LOADING, STOP_LOADING } from '../utils/actions';
 
 const Navbar = () => {
-  const { user, dispatch, category, setLoading, cart, axiosPrivate } =
-    useAuthContext();
+  const { user, dispatch, axiosPrivate } = useAuthContext();
+  const { categories, cart, dispatch: dispatchGlobal } = useGlobalContext();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchedMedications, setSearchedMedication] = useState([]);
 
   const navigate = useNavigate();
 
   const logout = async () => {
     try {
-      setLoading(true);
+      dispatchGlobal({ type: START_LOADING });
       const { data } = await axiosPrivate.post(`/${user.title}/logout`, {});
       localStorage.removeItem('info');
-      dispatch({ type: 'UNSET_USER' });
+      dispatch({ type: UNSET_USER });
       navigate('/');
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      dispatchGlobal({ type: STOP_LOADING });
     }
   };
 
@@ -78,14 +82,19 @@ const Navbar = () => {
         <Link to={'/'}>
           <img src='/images/logo.png' className='logo' alt='logo' />
         </Link>
-        <SearchBar />
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          searchedMedications={searchedMedications}
+          setSearchedMedication={setSearchedMedication}
+        />
         <div>
           <Selects
             name='categories'
             onChange={(e) => searchWithCategory(e.target.value)}
           >
             <option value=''>Category</option>
-            {category.map((item, index) => {
+            {categories.map((item, index) => {
               return (
                 <option key={index} value={item.id}>
                   {item.name}

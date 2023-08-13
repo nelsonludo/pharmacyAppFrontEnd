@@ -1,6 +1,7 @@
 import React, { useContext, useReducer, useEffect, useState } from 'react';
 import reducer from '../reducers/authReducer';
 import axiosInitial from 'axios';
+import { SET_USER, UNSET_USER } from '../utils/actions';
 
 const getInfoFromLocalStorage = () => {
   let info = localStorage.getItem('info');
@@ -21,13 +22,6 @@ const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [searchValue, setSearchValue] = useState('');
-  const [loggedin, setLoggedin] = useState(false);
-  const [category, setCategory] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [cart, setCart] = useState([]);
-  const [cartTotalAmount, setCartTotalAmount] = useState(0);
-  const [cartTotalPrice, setCartTotalPrice] = useState(0);
 
   const axios = axiosInitial.create({
     baseURL: 'http://localhost:4000/api',
@@ -42,32 +36,13 @@ const AuthProvider = ({ children }) => {
     },
   });
 
-  const calculateCartTotal = () => {
-    const cartAmount = cart.reduce((total, item) => {
-      total += item.amount;
-      return total;
-    }, 0);
-
-    const cartTotalPrice = cart.reduce((total, item) => {
-      total += item.price * item.productamount;
-      return total;
-    }, 0);
-
-    setCartTotalAmount(cartAmount);
-    setCartTotalPrice(cartTotalPrice);
-  };
-
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-  };
-
   const refreshToken = async (link) => {
     try {
       const { data } = await axios.post(`/${link}/token`);
-      dispatch({ type: 'SET_USER', payload: data });
+      dispatch({ type: SET_USER, payload: data });
       console.log('token refreshed ! mouf');
     } catch (error) {
-      dispatch({ type: 'UNSET_USER' });
+      dispatch({ type: UNSET_USER });
     }
   };
 
@@ -85,17 +60,6 @@ const AuthProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, [state.user]);
 
-  useEffect(() => {
-    axios
-      .get('/category')
-      .then((response) => setCategory(response.data))
-      .catch((error) => console.error(error));
-  }, []);
-
-  useEffect(() => {
-    calculateCartTotal();
-  }, [cart]);
-
   return (
     <AuthContext.Provider
       value={{
@@ -103,17 +67,6 @@ const AuthProvider = ({ children }) => {
         dispatch,
         axios,
         axiosPrivate,
-        searchValue,
-        setSearchValue,
-        setLoggedin,
-        loggedin,
-        category,
-        loading,
-        setLoading,
-        cart,
-        cartTotalAmount,
-        cartTotalPrice,
-        addToCart,
       }}
     >
       {children}

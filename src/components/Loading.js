@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 // import { CircularProgress } from '@mui/material';
-import styled from "styled-components";
-import { useAuthContext } from "../contexts/AuthContext";
+import styled from 'styled-components';
+import { useGlobalContext } from '../contexts/GlobalContext';
 
 const Loading = () => {
-  const { loading } = useAuthContext();
+  const { loading } = useGlobalContext();
 
   return (
-    <Wrapper style={{ display: `${loading ? "flex" : "none"}` }}>
+    <Wrapper style={{ display: `${loading ? 'flex' : 'none'}` }}>
       {/* <CircularProgress
         style={{
           color: 'var(--orange)',

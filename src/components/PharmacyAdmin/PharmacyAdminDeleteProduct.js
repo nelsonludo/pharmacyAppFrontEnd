@@ -1,17 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../../contexts/AuthContext';
+import { useGlobalContext } from '../../contexts/GlobalContext';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const PharmacyAdminDeleteProduct = ({
   deleteProduct,
   setDeleteProduct,
   getAllProducts,
 }) => {
-  const { setLoading, axiosPrivate } = useAuthContext();
+  const { axiosPrivate } = useAuthContext();
+  const { dispatch } = useGlobalContext();
 
   const handleDeleteProduct = async () => {
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.delete(
         `/pharmacyAdmin/deleteProduct/${deleteProduct.product.id}`
       );
@@ -22,7 +25,7 @@ const PharmacyAdminDeleteProduct = ({
       console.log(error);
       alert('An error has occured');
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

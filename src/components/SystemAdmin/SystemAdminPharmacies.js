@@ -6,6 +6,7 @@ import { useAuthContext } from '../../contexts/AuthContext';
 import SystemAdminCreatePharmacy from './SystemAdminCreatePharmacy';
 import SystemAdminDeletePharmacy from './SystemAdminDeletePharmacy';
 import SystemAdminUpdatePharmacy from './SystemAdminUpdatePharmacy';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const SystemAdminPharmacies = () => {
   const [pharmacies, setPharmacies] = useState([]);
@@ -21,11 +22,11 @@ const SystemAdminPharmacies = () => {
     pharmacy: {},
   });
 
-  const { setLoading, axiosPrivate } = useAuthContext();
+  const { dispatch, axiosPrivate } = useAuthContext();
 
   const getAllPharmacies = async () => {
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.get(
         `/systemAdmin/allPharmacies?name=${name}&page=${page}`
       );
@@ -33,7 +34,7 @@ const SystemAdminPharmacies = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

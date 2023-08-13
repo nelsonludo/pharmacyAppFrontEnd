@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useAuthContext } from '../contexts/AuthContext';
 import Header from '../components/Header';
 import DrugCategory from '../components/DrugCategory';
 import Footer from '../components/Footer';
+import { useGlobalContext } from '../contexts/GlobalContext';
 
 const Home = () => {
-  const { category } = useAuthContext();
+  const { categories } = useGlobalContext();
   // const navigate = useNavigate();
 
   // const logout = async () => {
@@ -28,7 +28,7 @@ const Home = () => {
   return (
     <Wrapper>
       <Header />
-      <DrugCategory category={category} />
+      <DrugCategory categories={categories} />
       <Footer />
     </Wrapper>
   );

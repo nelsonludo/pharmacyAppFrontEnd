@@ -11,10 +11,7 @@ const ProductItem = ({ product }) => {
       {product.map((item) => (
         <div key={item.id} className='productsContainer'>
           <div className='subProductContainer1'>
-            <img
-              alt='aProduct'
-              src={`http://localhost:4000/static/productImages/${item.productimage}`}
-            />
+            <img alt='aProduct' src={`${item.productimage}`} />
           </div>
           <div className='subProductContainer2'>
             <span className='productDescription'>
@@ -23,7 +20,7 @@ const ProductItem = ({ product }) => {
             </span>
             <span className='productName'>{item.productname}</span>
             <span>Pharmacy: {item.pharmacyname}</span>
-            <span>Distance (m):{item.distance_m}</span>
+            {item.distance_m && <span>Distance (m):{item.distance_m}</span>}
             <div className='priceAndButton'>
               <h2 className='productPrice'>
                 {item.productprice}

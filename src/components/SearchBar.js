@@ -1,29 +1,40 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 
-const SearchBar = () => {
-  const [products, setProducts] = useState([]);
-  const { searchValue, setSearchValue } = useAuthContext();
+const SearchBar = ({
+  searchTerm,
+  setSearchTerm,
+  searchedMedications,
+  setSearchedMedication,
+}) => {
+  const { axios } = useAuthContext();
 
   const navigate = useNavigate();
-  //   const handleButtonClick = (theEvent) => {
-  //     setDisplayText(searchValue);
-  //   };
-
-  const searchHandle = async (event) => {
-    setSearchValue(event.target.value);
-  };
 
   const submitHandle = (e) => {
     e.preventDefault();
     navigate('/products', {
-      state: { name: searchValue, category: '' },
+      state: { name: searchTerm, category: '' },
     });
+    setSearchTerm('');
   };
+
+  const fetchSearchedProducts = async () => {
+    if (searchTerm == '') {
+      setSearchedMedication([]);
+      return;
+    }
+    const { data } = await axios.get(`/product/search?name=${searchTerm}`);
+    setSearchedMedication(data);
+  };
+
+  useEffect(() => {
+    fetchSearchedProducts();
+  }, [searchTerm]);
 
   return (
     <form onSubmit={submitHandle}>
@@ -32,12 +43,34 @@ const SearchBar = () => {
           type='text'
           placeholder='search drug here'
           className='searchProductInput'
-          onChange={searchHandle}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button name='searchButton' type='submit'>
           <img alt='seach Image' src='/images/loupe.png' />
         </button>
       </SearchContainer>
+      {searchedMedications.length > 0 && (
+        <div>
+          {searchedMedications.map((medication) => {
+            return (
+              <Link
+                key={medication.id}
+                to={'/products'}
+                state={{ name: medication.name, category: '' }}
+                onClick={() => setSearchTerm('')}
+              >
+                {medication.name}
+              </Link>
+            );
+          })}
+        </div>
+      )}
+      {searchTerm !== '' && searchedMedications.length === 0 && (
+        <div>
+          <p>No product available</p>;
+        </div>
+      )}
     </form>
   );
 };

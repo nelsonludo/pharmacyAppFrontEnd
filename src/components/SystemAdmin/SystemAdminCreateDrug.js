@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useAuthContext } from '../../contexts/AuthContext';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const SystemAdminCreateDrug = ({ setCreateDrug, getAllDrugs }) => {
   const [name, setName] = useState('');
@@ -9,7 +10,7 @@ const SystemAdminCreateDrug = ({ setCreateDrug, getAllDrugs }) => {
   const [categoryId, setCategoryId] = useState('');
   const [normalPrice, setNormalPrice] = useState(0);
 
-  const { setLoading, category, axiosPrivate } = useAuthContext();
+  const { dispatch, category, axiosPrivate } = useAuthContext();
 
   const handleCreateDrug = async (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ const SystemAdminCreateDrug = ({ setCreateDrug, getAllDrugs }) => {
     }
 
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.post(`/systemAdmin/createProduct`, {
         name,
         description,
@@ -34,7 +35,7 @@ const SystemAdminCreateDrug = ({ setCreateDrug, getAllDrugs }) => {
       console.log(error);
       alert('An error has occured');
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../../contexts/AuthContext';
+import { useGlobalContext } from '../../contexts/GlobalContext';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const PharmacyAdminCreateProduct = ({ setCreateProduct, getAllProducts }) => {
   const [drugList, setDrugList] = useState([]);
@@ -8,17 +10,18 @@ const PharmacyAdminCreateProduct = ({ setCreateProduct, getAllProducts }) => {
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState(1);
 
-  const { setLoading, axiosPrivate } = useAuthContext();
+  const { axiosPrivate } = useAuthContext();
+  const { dispatch } = useGlobalContext();
 
   const getDrugsList = async () => {
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.get(`/pharmacyAdmin/seeDrugList`);
       setDrugList(data);
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 
@@ -31,7 +34,8 @@ const PharmacyAdminCreateProduct = ({ setCreateProduct, getAllProducts }) => {
     }
 
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
+
       const { data } = await axiosPrivate.post(`/pharmacyAdmin/createProduct`, {
         productId,
         price: parseFloat(price),
@@ -44,7 +48,7 @@ const PharmacyAdminCreateProduct = ({ setCreateProduct, getAllProducts }) => {
       alert(error.response.data.message);
     } finally {
       setCreateProduct(false);
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 

@@ -3,9 +3,11 @@ import styled from 'styled-components';
 // import { Pagination } from '@mui/material';
 
 import { useAuthContext } from '../../contexts/AuthContext';
+import { useGlobalContext } from '../../contexts/GlobalContext';
 import PharmacyAdminCreateProduct from './PharmacyAdminCreateProduct';
 import PharmacyAdminDeleteProduct from './PharmacyAdminDeleteProduct';
 import PharmacyAdminUpdateProduct from './PharmacyAdminUpdateProduct';
+import { STOP_LOADING, START_LOADING } from '../../utils/actions';
 
 const PharmacyAdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -21,11 +23,12 @@ const PharmacyAdminProducts = () => {
     product: {},
   });
 
-  const { setLoading, axiosPrivate } = useAuthContext();
+  const { axiosPrivate } = useAuthContext();
+  const { dispatch } = useGlobalContext();
 
   const getAllProducts = async () => {
     try {
-      setLoading(true);
+      dispatch({ type: START_LOADING });
       const { data } = await axiosPrivate.get(
         `/pharmacyAdmin/seeOurProducts?name=${name}&page=${page}`
       );
@@ -33,7 +36,7 @@ const PharmacyAdminProducts = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      dispatch({ type: STOP_LOADING });
     }
   };
 
