@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import useAxios from '../hooks/useAxios';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
@@ -16,8 +15,7 @@ const Products = () => {
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
 
-  const { setLoading } = useAuthContext();
-  const { axios } = useAxios();
+  const { setLoading, axios } = useAuthContext();
 
   const getProducts = async () => {
     try {

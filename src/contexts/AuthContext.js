@@ -1,6 +1,6 @@
 import React, { useContext, useReducer, useEffect, useState } from 'react';
 import reducer from '../reducers/authReducer';
-import axios from 'axios';
+import axiosInitial from 'axios';
 
 const getInfoFromLocalStorage = () => {
   let info = localStorage.getItem('info');
@@ -28,6 +28,19 @@ const AuthProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartTotalAmount, setCartTotalAmount] = useState(0);
   const [cartTotalPrice, setCartTotalPrice] = useState(0);
+
+  const axios = axiosInitial.create({
+    baseURL: 'http://localhost:4000/api',
+    withCredentials: true,
+  });
+
+  const axiosPrivate = axiosInitial.create({
+    baseURL: 'http://localhost:4000/api',
+    withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${state.user.accessToken}`,
+    },
+  });
 
   const calculateCartTotal = () => {
     const cartAmount = cart.reduce((total, item) => {
@@ -88,6 +101,8 @@ const AuthProvider = ({ children }) => {
       value={{
         ...state,
         dispatch,
+        axios,
+        axiosPrivate,
         searchValue,
         setSearchValue,
         setLoggedin,

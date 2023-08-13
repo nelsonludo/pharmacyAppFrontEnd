@@ -3,11 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import { useAuthContext } from '../contexts/AuthContext';
 import styled from 'styled-components';
-import useAxios from '../hooks/useAxios';
 
 const Navbar = () => {
-  const { user, dispatch, category, setLoading, cart } = useAuthContext();
-  const { axiosPrivate } = useAxios();
+  const { user, dispatch, category, setLoading, cart, axiosPrivate } =
+    useAuthContext();
+
   const navigate = useNavigate();
 
   const logout = async () => {

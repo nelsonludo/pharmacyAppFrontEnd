@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useAxios from '../../hooks/useAxios';
+
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const SystemAdminUpdateDrug = ({ updateDrug, setUpdateDrug, getAllDrugs }) => {
@@ -9,8 +9,7 @@ const SystemAdminUpdateDrug = ({ updateDrug, setUpdateDrug, getAllDrugs }) => {
   const [categoryId, setCategoryId] = useState(updateDrug.drug.category);
   const [normalPrice, setNormalPrice] = useState(updateDrug.drug.normalPrice);
 
-  const { setLoading, category } = useAuthContext();
-  const { axiosPrivate } = useAxios();
+  const { setLoading, category, axiosPrivate } = useAuthContext();
 
   const handleUpdateDrug = async (e) => {
     e.preventDefault();

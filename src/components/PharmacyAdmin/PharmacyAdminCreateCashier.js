@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../../contexts/AuthContext';
-import useAxios from '../../hooks/useAxios';
 
 const PharmacyAdminCreateCashier = ({ setCreateCashier, getAllCashiers }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { setLoading } = useAuthContext();
-  const { axiosPrivate } = useAxios();
+  const { setLoading, axiosPrivate } = useAuthContext();
 
   const handleCreateCashier = async (e) => {
     e.preventDefault();

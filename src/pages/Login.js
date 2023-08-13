@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useAxios from '../hooks/useAxios';
+
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import Loading from '../components/Loading';
@@ -11,8 +11,7 @@ const Login = () => {
   const [title, setTitle] = useState('customer');
 
   const navigate = useNavigate();
-  const { dispatch, setLoading } = useAuthContext();
-  const { axios } = useAxios();
+  const { dispatch, setLoading, axios } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

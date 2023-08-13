@@ -1,15 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../../contexts/AuthContext';
-import useAxios from '../../hooks/useAxios';
 
 const SystemAdminDeletePharmacy = ({
   deletePharmacy,
   setDeletePharmacy,
   getAllPharmacies,
 }) => {
-  const { setLoading } = useAuthContext();
-  const { axiosPrivate } = useAxios();
+  const { setLoading, axiosPrivate } = useAuthContext();
 
   const handleDeletePharmacy = async () => {
     try {

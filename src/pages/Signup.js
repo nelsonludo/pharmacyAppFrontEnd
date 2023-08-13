@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useAxios from '../hooks/useAxios';
+
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import Loading from '../components/Loading';
@@ -12,8 +12,7 @@ const Signup = () => {
   const [title, setTitle] = useState('customer');
 
   const navigate = useNavigate();
-  const { setLoading, dispatch } = useAuthContext();
-  const { axios } = useAxios();
+  const { setLoading, dispatch, axios } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

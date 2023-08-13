@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useAxios from '../../hooks/useAxios';
+
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const SystemAdminUpdatePharmacy = ({
@@ -19,8 +19,7 @@ const SystemAdminUpdatePharmacy = ({
   const [latitude, setLatitude] = useState(updatePharmacy.pharmacy.latitude);
   const [longitude, setLongitude] = useState(updatePharmacy.pharmacy.longitude);
 
-  const { setLoading } = useAuthContext();
-  const { axiosPrivate } = useAxios();
+  const { setLoading, axiosPrivate } = useAuthContext();
 
   const handleUpdatePharmacy = async (e) => {
     e.preventDefault();

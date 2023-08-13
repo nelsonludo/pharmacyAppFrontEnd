@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useAxios from '../../hooks/useAxios';
+
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
@@ -16,8 +16,7 @@ const SystemAdminCreatePharmacy = ({ setCreatePharmacy, getAllPharmacies }) => {
   const [pharmacyAdminEmail, setPharmacyAdminEmail] = useState('');
   const [pharmacyAdminPassword, setPharmacyAdminPassword] = useState('');
 
-  const { setLoading } = useAuthContext();
-  const { axiosPrivate } = useAxios();
+  const { setLoading, axiosPrivate } = useAuthContext();
 
   const handleCreatePharmacy = async (e) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useAxios from '../../hooks/useAxios';
+
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const PharmacyAdminUpdateProduct = ({
@@ -11,8 +11,7 @@ const PharmacyAdminUpdateProduct = ({
   const [price, setPrice] = useState(updateProduct.product.price);
   const [amount, setAmount] = useState(updateProduct.product.amount);
 
-  const { setLoading } = useAuthContext();
-  const { axiosPrivate } = useAxios();
+  const { setLoading, axiosPrivate } = useAuthContext();
 
   const handleUpdateProduct = async (e) => {
     e.preventDefault();

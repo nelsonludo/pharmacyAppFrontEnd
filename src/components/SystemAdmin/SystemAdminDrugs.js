@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { Pagination } from '@mui/material';
-import useAxios from '../../hooks/useAxios';
+
 import { useAuthContext } from '../../contexts/AuthContext';
 import SystemAdminCreateDrug from './SystemAdminCreateDrug';
 import SystemAdminDeleteDrug from './SystemAdminDeleteDrug';
@@ -21,8 +21,7 @@ const SystemAdminDrugs = () => {
     drug: {},
   });
 
-  const { setLoading } = useAuthContext();
-  const { axiosPrivate } = useAxios();
+  const { setLoading, axiosPrivate } = useAuthContext();
 
   const getAllDrugs = async () => {
     try {

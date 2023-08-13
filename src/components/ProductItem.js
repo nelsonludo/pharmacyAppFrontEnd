@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../contexts/AuthContext';
 

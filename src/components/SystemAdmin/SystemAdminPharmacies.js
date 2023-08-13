@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { Pagination } from '@mui/material';
-import useAxios from '../../hooks/useAxios';
+
 import { useAuthContext } from '../../contexts/AuthContext';
 import SystemAdminCreatePharmacy from './SystemAdminCreatePharmacy';
 import SystemAdminDeletePharmacy from './SystemAdminDeletePharmacy';
@@ -21,8 +21,7 @@ const SystemAdminPharmacies = () => {
     pharmacy: {},
   });
 
-  const { setLoading } = useAuthContext();
-  const { axiosPrivate } = useAxios();
+  const { setLoading, axiosPrivate } = useAuthContext();
 
   const getAllPharmacies = async () => {
     try {
