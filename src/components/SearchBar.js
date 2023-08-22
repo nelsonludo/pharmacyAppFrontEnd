@@ -5,12 +5,10 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 
-const SearchBar = ({
-  searchTerm,
-  setSearchTerm,
-  searchedMedications,
-  setSearchedMedication,
-}) => {
+const SearchBar = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchedMedications, setSearchedMedication] = useState([]);
+
   const { axios } = useAuthContext();
 
   const navigate = useNavigate();

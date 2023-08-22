@@ -9,8 +9,6 @@ import { UNSET_USER, START_LOADING, STOP_LOADING } from '../utils/actions';
 const Navbar = () => {
   const { user, dispatch, axiosPrivate } = useAuthContext();
   const { categories, cart, dispatch: dispatchGlobal } = useGlobalContext();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchedMedications, setSearchedMedication] = useState([]);
 
   const navigate = useNavigate();
 
@@ -82,12 +80,7 @@ const Navbar = () => {
         <Link to={'/'}>
           <img src='/images/logo.png' className='logo' alt='logo' />
         </Link>
-        <SearchBar
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          searchedMedications={searchedMedications}
-          setSearchedMedication={setSearchedMedication}
-        />
+        <SearchBar />
         <div>
           <Selects
             name='categories'
