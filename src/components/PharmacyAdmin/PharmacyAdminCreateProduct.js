@@ -16,7 +16,10 @@ const PharmacyAdminCreateProduct = ({ setCreateProduct, getAllProducts }) => {
   const getDrugsList = async () => {
     try {
       dispatch({ type: START_LOADING });
-      const { data } = await axiosPrivate.get(`/pharmacyAdmin/seeDrugList`);
+      console.log('yoo');
+      const { data } = await axiosPrivate.get(
+        `/pharmacyAdmin/seeDrugList?name=&page=1`
+      );
       setDrugList(data);
     } catch (error) {
       console.log(error);

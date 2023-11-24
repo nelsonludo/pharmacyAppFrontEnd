@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // import { Pagination } from '@mui/material';
 
 import { useAuthContext } from '../../contexts/AuthContext';
+import { useGlobalContext } from '../../contexts/GlobalContext';
 import SystemAdminCreateDrug from './SystemAdminCreateDrug';
 import SystemAdminDeleteDrug from './SystemAdminDeleteDrug';
 import SystemAdminUpdateDrug from './SystemAdminUpdateDrug';
@@ -22,12 +23,15 @@ const SystemAdminDrugs = () => {
     drug: {},
   });
 
-  const { dispatch, axiosPrivate } = useAuthContext();
+  const { axiosPrivate } = useAuthContext();
+  const { dispatch } = useGlobalContext();
 
   const getAllDrugs = async () => {
     try {
       dispatch({ type: START_LOADING });
-      const { data } = await axiosPrivate.get(`/systemAdmin/seeProducts`);
+      const { data } = await axiosPrivate.get(
+        `/systemAdmin/seeProducts?name=&page=1`
+      );
       setDrugs(data);
     } catch (error) {
       console.log(error);
